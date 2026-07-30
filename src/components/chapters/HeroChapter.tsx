@@ -85,13 +85,14 @@ export function HeroChapter() {
       ref={sectionRef}
       id="hero"
       data-hero-section
-      className="relative min-h-[100svh] overflow-hidden bg-ice"
+      className="relative z-[5] min-h-[100svh] overflow-hidden bg-ice isolate"
       aria-label={t("title")}
     >
       {/* Sequência full-bleed — passa sozinha, ordem aleatória */}
       <ImageCarousel
         slides={slides}
         className="absolute inset-0 z-0 h-full w-full"
+        imageClassName="object-cover"
         showCaptions={false}
         showDots
         showArrows={false}
@@ -102,7 +103,9 @@ export function HeroChapter() {
         autoplayLocked
       />
 
-      <HeroWaterfall />
+      <div className="pointer-events-none absolute inset-0 z-[1] opacity-30">
+        <HeroWaterfall />
+      </div>
 
       <div
         ref={contentRef}

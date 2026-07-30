@@ -130,10 +130,10 @@ export function ImageCarousel({
       )}
       {overlay === "hero" && (
         <>
-          {/* Topo suave para o header transparente “fazer parte” da imagem */}
-          <div className="pointer-events-none absolute inset-x-0 top-0 h-36 bg-gradient-to-b from-white/35 via-white/10 to-transparent" />
-          {/* Centro leve + base para legibilidade do título */}
-          <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-white/25 to-white/88" />
+          {/* Topo leve — header transparente integra-se na imagem */}
+          <div className="pointer-events-none absolute inset-x-0 top-0 z-[1] h-40 bg-gradient-to-b from-white/45 via-white/15 to-transparent" />
+          {/* Base só para o título — o centro da imagem fica visível */}
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-[1] h-[48%] bg-gradient-to-t from-white via-white/70 to-transparent" />
         </>
       )}
 

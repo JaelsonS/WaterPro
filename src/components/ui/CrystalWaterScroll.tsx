@@ -226,7 +226,7 @@ export function CrystalWaterScroll() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none fixed inset-0 z-[3]"
+      className="pointer-events-none fixed inset-0 z-[1]"
       aria-hidden="true"
     />
   );
