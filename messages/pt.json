@@ -1,0 +1,446 @@
+{
+  "meta": {
+    "title": "Water Pro – Pureza e saúde em cada gota de água!",
+    "description": "A Water Pro é uma empresa especializada em soluções de purificação, bem-estar e sustentabilidade. Atendemos clientes residenciais e empresariais em todo o território nacional.",
+    "keywords": "Water Pro, tratamento de água, purificação de água, osmose inversa, descalcificadores, filtros de água, para sua casa, para sua empresa, Portugal, waterpro.pt, água mineral, Torneira de água mineral, torneira de água pura, torneira de água filtrada, torneira de água descalcificada, torneira de água pura e filtrada, torneira de água descalcificada e filtrada, torneira de água pura e descalcificada, torneira de água filtrada e descalcificada, torneira de água pura e filtrada e descalcificada, torneira de água descalcificada e filtrada e pura, torneira de água filtrada e descalcificada e pura, torneira de água pura e filtrada e descalcificada e pura, torneira de água descalcificada e filtrada e pura e filtrada, torneira de água pura e descalcificada e filtrada e pura, torneira de água filtrada e descalcificada e pura e filtrada, torneira de água pura e descalcificada e filtrada e pura e filtrada, torneira de água descalcificada e pura e filtrada e pura e filtrada, torneira de água pura"
+  },
+    "nav": {
+    "start": "Início",
+    "home": "Para Sua Casa",
+    "business": "Para a Sua Empresa",
+    "chapters": "Capítulos",
+    "discover": "Descobrir",
+    "families": "Famílias",
+    "solutions": "Soluções",
+    "about": "Sobre",
+    "science": "Ciência",
+    "trust": "Confiança",
+    "contact": "Contacto",
+    "cta": "Agendar análise"
+  },
+  "hero": {
+    "chapter": "Capítulo I",
+    "tag": "Pureza que transforma vidas",
+    "title": "A água que a sua família merece",
+    "titleBefore": "A água que a sua ",
+    "titleAccent": "família merece",
+    "subtitle": "Mil vezes por dia, confia na água que corre nas suas torneiras. A WaterPro transforma cada gota em saúde, conforto e tranquilidade para quem mais importa.",
+    "scroll": "Descer para explorar",
+    "cta": "Descubra a verdade",
+    "ctaGui": "Falar com o Gui",
+    "slides": [
+      "Água pura para toda a família",
+      "Saúde e bem-estar em cada gota",
+      "Proteção que se sente no dia a dia",
+      "Conforto e confiança em casa",
+      "Momentos especiais merecem água perfeita",
+      "Tecnologia WaterPro em cada detalhe"
+    ]
+  },
+  "problem": {
+    "chapter": "Capítulo II",
+    "title": "O problema escondido",
+    "subtitle": "Por detrás de cada torneira, existe uma realidade que não vê — mas que o seu corpo sente todos os dias.",
+    "stats": {
+      "hardness": {
+        "value": "73%",
+        "label": "das casas em Portugal têm água com dureza elevada"
+      },
+      "contaminants": {
+        "value": "200+",
+        "label": "substâncias podem estar presentes na água da rede"
+      },
+      "health": {
+        "value": "40%",
+        "label": "dos problemas de pele estão ligados à qualidade da água"
+      }
+    },
+    "points": [
+      "Calcário que destrói eletrodomésticos e aumenta contas de energia",
+      "Cloro e metais pesados que afetam sabor, odor e saúde",
+      "Bactérias e sedimentos invisíveis a olho nu",
+      "Água de furo ou chuva sem tratamento adequado"
+    ],
+    "cta": "Veja o que está na sua água"
+  },
+  "consequences": {
+    "chapter": "Capítulo III",
+    "title": "Quando a água não é tratada",
+    "subtitle": "Cada gota não tratada tem consequências — na sua saúde, no seu património, no seu bem-estar.",
+    "cards": [
+      {
+        "title": "Saúde comprometida",
+        "description": "Pele seca, cabelo frágil, problemas digestivos. A água que consome diariamente influencia diretamente o seu bem-estar."
+      },
+      {
+        "title": "Património em risco",
+        "description": "Calcário acumula-se em canos, esquentadores e máquinas. O custo de reparação supera largamente o investimento em tratamento."
+      },
+      {
+        "title": "Sabor e qualidade",
+        "description": "Café amargo, comida sem sabor, roupa áspera. A água não tratada compromete tudo o que toca."
+      }
+    ],
+    "cta": "Proteja quem mais importa"
+  },
+  "science": {
+    "chapter": "Capítulo IV",
+    "title": "A ciência por detrás da pureza",
+    "subtitle": "Tecnologia de ponta combinada com décadas de experiência. Cada sistema WaterPro é engenharia aplicada ao bem-estar.",
+    "process": [
+      {
+        "step": "01",
+        "title": "Análise laboratorial",
+        "description": "Amostragem e testes completos para identificar dureza, pH, metais pesados, bactérias e contaminantes específicos."
+      },
+      {
+        "step": "02",
+        "title": "Engenharia personalizada",
+        "description": "Desenhamos a solução ideal para a sua origem de água — rede pública, furo, poço ou captação de chuva."
+      },
+      {
+        "step": "03",
+        "title": "Instalação certificada",
+        "description": "Equipas técnicas especializadas garantem instalação impecável, com mínima interferência no seu dia-a-dia."
+      },
+      {
+        "step": "04",
+        "title": "Monitorização contínua",
+        "description": "Manutenção preventiva e acompanhamento para garantir pureza constante, ano após ano."
+      }
+    ],
+    "technologies": [
+      "Osmose inversa",
+      "Abrandadores iónicos",
+      "Filtração UV",
+      "Carvão ativado",
+      "Ultrafiltração",
+      "Desinfecção automática"
+    ],
+    "cta": "Conheça a tecnologia"
+  },
+  "solutions": {
+    "chapter": "Capítulo V",
+    "title": "Como a WaterPro transforma a sua realidade",
+    "subtitle": "Não vendemos equipamentos. Protegemos famílias, empresas e investimentos com soluções à medida.",
+    "residential": {
+      "tag": "Para a sua casa",
+      "title": "Pureza em cada torneira",
+      "description": "Sistemas compactos e silenciosos que transformam a água da sua casa em água de qualidade premium — para beber, cozinhar, banhar e proteger.",
+      "features": [
+        "Água pura para toda a família",
+        "Proteção contra calcário",
+        "Sabor e odor eliminados",
+        "Instalação discreta e elegante"
+      ],
+      "cta": "Transforme a água da sua casa"
+    },
+    "commercial": {
+      "tag": "Para a sua empresa",
+      "title": "Excelência operacional",
+      "description": "Restaurantes, hotéis, indústria e escritórios confiam na WaterPro para garantir qualidade, conformidade e eficiência em escala.",
+      "features": [
+        "Conformidade regulamentar",
+        "Redução de custos operacionais",
+        "Sistemas de alta capacidade",
+        "Suporte técnico dedicado 24/7"
+      ],
+      "cta": "Eleve o padrão da sua empresa"
+    }
+  },
+  "testimonials": {
+    "chapter": "Capítulo VI",
+    "title": "Vidas transformadas",
+    "subtitle": "Histórias reais de quem decidiu que a qualidade da água não era negociável.",
+    "items": [
+      {
+        "quote": "Depois da instalação, a diferença no sabor da água e na pele dos meus filhos foi imediata. Não voltamos atrás.",
+        "author": "Maria Santos",
+        "role": "Proprietária, Cascais",
+        "type": "Residencial"
+      },
+      {
+        "quote": "O nosso restaurante exige água perfeita em cada prato. A WaterPro entregou uma solução que superou todas as expectativas.",
+        "author": "João Ferreira",
+        "role": "Chef Executivo, Lisboa",
+        "type": "Comercial"
+      },
+      {
+        "quote": "Reduzimos custos de manutenção em 60% e eliminámos problemas de calcário nas nossas linhas de produção.",
+        "author": "Ana Rodrigues",
+        "role": "Diretora de Operações, Porto",
+        "type": "Industrial"
+      }
+    ],
+    "cta": "Veja a diferença",
+    "prev": "Comentário anterior",
+    "next": "Comentário seguinte",
+    "goTo": "Ir para comentário"
+  },
+  "trust": {
+    "chapter": "Capítulo VII",
+    "title": "Confiança construída gota a gota",
+    "subtitle": "Anos de dedicação, centenas de projetos e um compromisso inabalável com a excelência.",
+    "stats": [
+      { "value": "15+", "label": "Anos de experiência" },
+      { "value": "2.500+", "label": "Projetos concluídos" },
+      { "value": "98%", "label": "Clientes satisfeitos" },
+      { "value": "24/7", "label": "Suporte técnico" }
+    ],
+    "certifications": [
+      "ISO 9001",
+      "Certificação DGAV",
+      "Parceiro oficial Culligan",
+      "Garantia estendida 5 anos"
+    ],
+    "journey": {
+      "title": "A sua jornada connosco",
+      "steps": [
+        { "title": "Primeiro contacto", "description": "Entre em contacto connosco por telefone, email ou formulário." },
+        { "title": "Análise especializada", "description": "Compreendemos a origem da sua água e avaliamos dureza e qualidade." },
+        { "title": "Visita técnica", "description": "Realizamos uma visita antes de qualquer proposta, garantindo precisão." },
+        { "title": "Solução personalizada", "description": "Indicamos a melhor solução para a sua casa ou empresa." }
+      ]
+    },
+    "faq": {
+      "title": "Perguntas frequentes",
+      "items": [
+        {
+          "question": "Quanto tempo demora a instalação?",
+          "answer": "A maioria das instalações residenciais é concluída num único dia. Projetos comerciais dependem da complexidade, mas planeamos tudo para minimizar interrupções."
+        },
+        {
+          "question": "A água tratada perde minerais importantes?",
+          "answer": "Os nossos sistemas podem incluir remineralização seletiva, garantindo água saudável e equilibrada sem comprometer a pureza."
+        },
+        {
+          "question": "Qual é o custo de manutenção?",
+          "answer": "Oferecemos planos de manutenção transparentes, com custos previsíveis. A manutenção preventiva prolonga a vida útil do equipamento e garante qualidade constante."
+        },
+        {
+          "question": "Tratam água de furo e poço?",
+          "answer": "Sim. Somos especialistas em todas as origens de água — rede pública, furo, poço e captação de chuva. Cada origem exige uma abordagem diferente."
+        }
+      ]
+    }
+  },
+  "cta": {
+    "chapter": "Capítulo VIII",
+    "title": "O convite",
+    "subtitle": "A água perfeita não é um luxo. É uma decisão. E começa com uma conversa.",
+    "description": "Agende uma análise técnica gratuita. Sem compromisso. Sem pressão. Apenas clareza sobre a qualidade da água que consome todos os dias.",
+    "primary": "Agende uma análise gratuita",
+    "secondary": "Ligue-nos agora",
+    "phone": "+351 910 643 181",
+    "email": "geral@waterpro.pt"
+  },
+  "map": {
+    "tag": "Onde estamos",
+    "title": "Visite-nos",
+    "directions": "Abrir no Google Maps",
+    "iframeTitle": "Mapa da localização Water Pro"
+  },
+  "contact": {
+    "title": "Fale connosco",
+    "name": "Nome completo",
+    "email": "Email",
+    "phone": "Telefone",
+    "type": "Tipo de cliente",
+    "typeResidential": "Residencial",
+    "typeCommercial": "Empresarial",
+    "message": "Conte-nos sobre a sua situação",
+    "submit": "Enviar pedido",
+    "success": "Mensagem enviada com sucesso. Entraremos em contacto em breve.",
+    "privacy": "Ao submeter, concorda com o tratamento dos seus dados conforme a nossa política de privacidade."
+  },
+  "footer": {
+    "tagline": "Pureza e saúde em cada gota de água!",
+    "rights": "Todos os direitos reservados.",
+    "developedBy": "Desenvolvido por",
+    "afdigital": "AfDigital – Soluções Tecnológicas",
+    "coverage": "Atendimento em todo o território nacional.",
+    "phone": "+351 910 643 181",
+    "email": "geral@waterpro.pt",
+    "nif": "NIF: 123 456 789",
+    "shop": "Loja",
+    "home": "Para Sua Casa",
+    "business": "Para a Sua Empresa",
+    "about": "Sobre Nós",
+    "links": {
+      "privacy": "Privacidade",
+      "terms": "Termos",
+      "cookies": "Cookies"
+    },
+    "follow": "Siga-nos"
+  },
+  "residential": {
+    "meta": {
+      "title": "Para Sua Casa — Soluções de Água Premium | WaterPro",
+      "description": "Descubra purificadores, descalcificadores, torneiras e sistemas inteligentes para a sua casa. Catálogo premium WaterPro com consulta de preço."
+    },
+    "catalog": {
+      "title": "Escolha a sua solução",
+      "subtitle": "Explore o nosso catálogo completo de equipamentos para casa. Filtre por categoria, pesquise por nome e encontre a solução ideal para a sua situação."
+    }
+  },
+  "enterprise": {
+    "meta": {
+      "title": "Para a Sua Empresa — Soluções Profissionais de Água | WaterPro",
+      "description": "Fontes de água, purificadores e sistemas profissionais para escritórios, hotéis, restaurantes e indústria. Catálogo B2B WaterPro com orçamento sob consulta."
+    },
+    "catalog": {
+      "title": "Equipamentos para o seu negócio",
+      "subtitle": "Explore soluções profissionais de água para empresas exigentes. Filtre por categoria, setor e encontre o equipamento ideal para o seu espaço."
+    }
+  },
+  "about": {
+    "meta": {
+      "title": "Sobre Nós — Water Pro | Pureza e saúde em cada gota",
+      "description": "Conheça a história, missão, visão e valores da Water Pro — referência em soluções de purificação de água para residências e empresas em Portugal."
+    },
+    "tag": "A nossa história",
+    "title": "Quem Somos",
+    "lead": "A Water Pro nasceu com um propósito simples e poderoso: transformar a água que entra nas casas e negócios portugueses em uma fonte real de saúde, bem-estar e confiança.",
+    "who": {
+      "tag": "Quem Somos",
+      "title": "Especialistas em água pura",
+      "p1": "A Water Pro é uma empresa especializada em soluções de purificação, bem-estar e sustentabilidade. Atendemos tanto clientes residenciais quanto empresariais, sempre com foco na personalização, confiança e resultados reais.",
+      "p2": "Acreditamos que cada cliente é único. Por isso, não vendemos equipamentos em série — estudamos a origem da sua água (rede pública, furo ou água da chuva), avaliamos a dureza e a qualidade, e só então recomendamos a solução certa para o seu contexto.",
+      "p3": "Com atendimento em todo o território nacional, acompanhamos cada projeto desde o primeiro contacto até à instalação e manutenção, garantindo que cada gota que sai da sua torneira reflete o compromisso que assumimos consigo.",
+      "imageAlt": "Equipamentos Water Pro para tratamento de água"
+    },
+    "pillars": {
+      "srTitle": "Missão, visão e compromisso",
+      "mission": {
+        "label": "Missão",
+        "title": "Saúde em cada gota",
+        "description": "Levar saúde e bem-estar através da água pura e soluções tecnológicas acessíveis — para que famílias e empresas tenham acesso à melhor qualidade de água, sem complicações."
+      },
+      "vision": {
+        "label": "Visão",
+        "title": "Referência em Portugal",
+        "description": "Ser referência em Portugal no fornecimento de soluções personalizadas em purificação de água, reconhecida pela excelência técnica, proximidade ao cliente e resultados comprovados."
+      },
+      "promise": {
+        "label": "Compromisso",
+        "title": "Resultados reais",
+        "description": "Realizamos visita técnica antes de qualquer proposta. O nosso foco não é vender — é resolver. Cada solução é desenhada à medida, com transparência total e acompanhamento contínuo."
+      }
+    },
+    "values": {
+      "tag": "Os nossos valores",
+      "title": "O que nos guia todos os dias",
+      "subtitle": "Confiança, transparência, inovação, sustentabilidade e excelência no atendimento não são apenas palavras no nosso site — são critérios que orientam cada decisão.",
+      "items": [
+        {
+          "title": "Confiança",
+          "description": "Construímos relações duradouras com base na honestidade, no acompanhamento próximo e na entrega do que prometemos."
+        },
+        {
+          "title": "Transparência",
+          "description": "Explicamos cada etapa do processo, sem letras pequenas. O cliente sabe exatamente o que está a receber e porquê."
+        },
+        {
+          "title": "Inovação",
+          "description": "Selecionamos tecnologias de ponta em osmose, descalcificação e purificação para oferecer o melhor desempenho com eficiência energética."
+        },
+        {
+          "title": "Sustentabilidade",
+          "description": "Promovemos o consumo consciente de água, a redução de plástico e soluções que protegem o ambiente e o bolso."
+        },
+        {
+          "title": "Excelência no atendimento",
+          "description": "Da análise gratuita à instalação e suporte pós-venda, cada interação reflete o nosso padrão de qualidade e respeito pelo cliente."
+        }
+      ]
+    },
+    "journey": {
+      "tag": "Jornada de atendimento",
+      "title": "Cada cliente é único",
+      "subtitle": "Trabalhamos com atendimento técnico personalizado. Após o primeiro contacto, um especialista Water Pro entra em contacto para compreender a sua situação e indicar o caminho certo.",
+      "steps": [
+        {
+          "title": "Primeiro contacto",
+          "description": "Entre em contacto connosco por telefone, WhatsApp, email ou formulário. A nossa equipa responde com atenção e rapidez."
+        },
+        {
+          "title": "Análise especializada",
+          "description": "Compreendemos a origem da sua água, avaliamos dureza, impurezas e necessidades específicas da sua casa ou empresa."
+        },
+        {
+          "title": "Visita técnica",
+          "description": "Antes de qualquer proposta, realizamos uma visita técnica no local para garantir precisão, segurança e resultados reais."
+        },
+        {
+          "title": "Solução personalizada",
+          "description": "Com base na análise e visita, indicamos a melhor solução — residencial ou empresarial — com instalação profissional e acompanhamento."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Pronto para conhecer a sua solução?",
+      "subtitle": "Explore os nossos catálogos ou fale connosco para uma análise gratuita da sua água.",
+      "residential": "Ver Para Sua Casa",
+      "business": "Ver Para a Sua Empresa"
+    }
+  },
+  "families": {
+    "tag": "Vidas reais, água real",
+    "title": "Proteja quem mais importa",
+    "subtitle": "Milhares de famílias em Portugal já confiam na WaterPro para água pura, saudável e com sabor incomparável — em cada refeição, em cada banho, em cada momento.",
+    "ctaTitle": "A sua família merece o melhor",
+    "ctaSubtitle": "Agende uma análise gratuita e descubra a solução ideal para a sua casa.",
+    "cta": "Falar com o Gui",
+    "viewProduct": "Ver detalhes do produto",
+    "swipeHint": "Deslize ou use as setas para ver mais →",
+    "prev": "Anterior",
+    "next": "Seguinte"
+  },
+  "faucet": {
+    "tag": "Pureza visível",
+    "title": "Água cristalina, direto da torneira",
+    "subtitle": "Veja e sinta a diferença da água tratada pela WaterPro — transparente, pura e com sabor incomparável.",
+    "videoLabel": "Vídeo de água cristalina a correr de uma torneira",
+    "points": [
+      "Eliminação de calcário, cloro e impurezas",
+      "Sabor e odor neutros em cada gota",
+      "Proteção para toda a família, todos os dias"
+    ]
+  },
+  "gui": {
+    "name": "Gui",
+    "title": "Assistente WaterPro",
+    "role": "Assistente virtual · Online agora",
+    "fab": "Falar com o Gui",
+    "open": "Abrir assistente Gui",
+    "close": "Fechar assistente",
+    "reset": "Reiniciar",
+    "typing": "Gui está a escrever...",
+    "welcome": "Olá! Sou o Gui, assistente virtual da WaterPro. Estou aqui para o ajudar a encontrar a solução de água perfeita para si. Como posso ajudar?",
+    "redirecting": "Perfeito! Vou abrir o WhatsApp da WaterPro com a sua mensagem já preparada. Um especialista irá responder em breve.",
+    "steps": {
+      "intent": "Escolha uma das opções abaixo ou pergunte-me o que precisar:",
+      "faq-hardness": "A água dura (com calcário) danifica esquentadores, máquinas e a sua pele. Os nossos descalcificadores eliminam o calcário e prolongam a vida dos seus equipamentos. Quer que marque uma visita técnica gratuita?",
+      "faq-ro": "A osmose inversa remove até 99% dos contaminantes, incluindo metais pesados e cloro. É a solução mais completa para água de consumo. Posso pedir um orçamento personalizado para a sua casa?",
+      "faq-visit": "A visita técnica é gratuita e sem compromisso. Um técnico WaterPro analisa a sua água e recomenda a melhor solução. Quer agendar?"
+    },
+    "options": {
+      "quoteHome": "Orçamento Para Sua Casa",
+      "quoteBusiness": "Orçamento Para Empresa",
+      "visit": "Marcar visita técnica",
+      "analysis": "Análise gratuita da água",
+      "faqHardness": "O que é água dura?",
+      "faqRo": "Como funciona a osmose?",
+      "human": "Falar com especialista",
+      "back": "Voltar ao menu",
+      "restart": "Nova conversa"
+    }
+  },
+  "a11y": {
+    "skipToContent": "Saltar para o conteúdo",
+    "menuOpen": "Abrir menu",
+    "menuClose": "Fechar menu",
+    "languageSwitch": "Mudar idioma",
+    "scrollProgress": "Progresso da página"
+  }
+}

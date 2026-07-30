@@ -1,0 +1,446 @@
+{
+  "meta": {
+    "title": "Water Pro – Purity and health in every drop of water!",
+    "description": "Water Pro specialises in purification, wellbeing and sustainability solutions. We serve residential and commercial clients across Portugal.",
+    "keywords": "Water Pro, water treatment, water purification, reverse osmosis, water softeners, for your home, for your business, Portugal, waterpro.pt, "
+  },
+    "nav": {
+    "start": "Home",
+    "home": "For Your Home",
+    "business": "For Your Business",
+    "chapters": "Chapters",
+    "discover": "Discover",
+    "families": "Families",
+    "solutions": "Solutions",
+    "about": "About",
+    "science": "Science",
+    "trust": "Trust",
+    "contact": "Contact",
+    "cta": "Book an analysis"
+  },
+  "hero": {
+    "chapter": "Chapter I",
+    "tag": "Purity that transforms lives",
+    "title": "The water your family deserves",
+    "titleBefore": "The water your ",
+    "titleAccent": "family deserves",
+    "subtitle": "A thousand times a day, you trust the water from your taps. WaterPro transforms every drop into health, comfort and peace of mind for those who matter most.",
+    "scroll": "Scroll to explore",
+    "cta": "Discover the truth",
+    "ctaGui": "Talk to Gui",
+    "slides": [
+      "Pure water for the whole family",
+      "Health and wellbeing in every drop",
+      "Protection you feel every day",
+      "Comfort and confidence at home",
+      "Special moments deserve perfect water",
+      "WaterPro technology in every detail"
+    ]
+  },
+  "problem": {
+    "chapter": "Chapter II",
+    "title": "The hidden problem",
+    "subtitle": "Behind every tap lies a reality you cannot see — but your body feels every single day.",
+    "stats": {
+      "hardness": {
+        "value": "73%",
+        "label": "of homes in Portugal have hard water"
+      },
+      "contaminants": {
+        "value": "200+",
+        "label": "substances may be present in tap water"
+      },
+      "health": {
+        "value": "40%",
+        "label": "of skin issues are linked to water quality"
+      }
+    },
+    "points": [
+      "Limescale that damages appliances and increases energy bills",
+      "Chlorine and heavy metals affecting taste, odour and health",
+      "Bacteria and sediment invisible to the naked eye",
+      "Untreated borehole or rainwater"
+    ],
+    "cta": "See what's in your water"
+  },
+  "consequences": {
+    "chapter": "Chapter III",
+    "title": "When water goes untreated",
+    "subtitle": "Every untreated drop has consequences — for your health, your property, your wellbeing.",
+    "cards": [
+      {
+        "title": "Compromised health",
+        "description": "Dry skin, brittle hair, digestive issues. The water you consume daily directly influences your wellbeing."
+      },
+      {
+        "title": "Property at risk",
+        "description": "Limescale builds up in pipes, boilers and machines. Repair costs far exceed the investment in treatment."
+      },
+      {
+        "title": "Taste and quality",
+        "description": "Bitter coffee, flavourless food, rough laundry. Untreated water compromises everything it touches."
+      }
+    ],
+    "cta": "Protect what matters most"
+  },
+  "science": {
+    "chapter": "Chapter IV",
+    "title": "The science behind purity",
+    "subtitle": "Cutting-edge technology combined with decades of experience. Every WaterPro system is engineering applied to wellbeing.",
+    "process": [
+      {
+        "step": "01",
+        "title": "Laboratory analysis",
+        "description": "Sampling and comprehensive tests to identify hardness, pH, heavy metals, bacteria and specific contaminants."
+      },
+      {
+        "step": "02",
+        "title": "Custom engineering",
+        "description": "We design the ideal solution for your water source — mains, borehole, well or rainwater harvesting."
+      },
+      {
+        "step": "03",
+        "title": "Certified installation",
+        "description": "Specialised technical teams ensure flawless installation with minimal disruption to your daily life."
+      },
+      {
+        "step": "04",
+        "title": "Continuous monitoring",
+        "description": "Preventive maintenance and follow-up to guarantee constant purity, year after year."
+      }
+    ],
+    "technologies": [
+      "Reverse osmosis",
+      "Ion exchange softeners",
+      "UV filtration",
+      "Activated carbon",
+      "Ultrafiltration",
+      "Automatic disinfection"
+    ],
+    "cta": "Explore the technology"
+  },
+  "solutions": {
+    "chapter": "Chapter V",
+    "title": "How WaterPro transforms your reality",
+    "subtitle": "We don't sell equipment. We protect families, businesses and investments with tailored solutions.",
+    "residential": {
+      "tag": "For your home",
+      "title": "Purity at every tap",
+      "description": "Compact, silent systems that transform your home water into premium quality — for drinking, cooking, bathing and protecting.",
+      "features": [
+        "Pure water for the whole family",
+        "Limescale protection",
+        "Taste and odour eliminated",
+        "Discreet, elegant installation"
+      ],
+      "cta": "Transform your home water"
+    },
+    "commercial": {
+      "tag": "For your business",
+      "title": "Operational excellence",
+      "description": "Restaurants, hotels, industry and offices trust WaterPro to guarantee quality, compliance and efficiency at scale.",
+      "features": [
+        "Regulatory compliance",
+        "Reduced operating costs",
+        "High-capacity systems",
+        "Dedicated 24/7 technical support"
+      ],
+      "cta": "Elevate your business standard"
+    }
+  },
+  "testimonials": {
+    "chapter": "Chapter VI",
+    "title": "Lives transformed",
+    "subtitle": "Real stories from those who decided water quality was non-negotiable.",
+    "items": [
+      {
+        "quote": "After installation, the difference in water taste and my children's skin was immediate. We never looked back.",
+        "author": "Maria Santos",
+        "role": "Homeowner, Cascais",
+        "type": "Residential"
+      },
+      {
+        "quote": "Our restaurant demands perfect water in every dish. WaterPro delivered a solution that exceeded all expectations.",
+        "author": "João Ferreira",
+        "role": "Executive Chef, Lisbon",
+        "type": "Commercial"
+      },
+      {
+        "quote": "We reduced maintenance costs by 60% and eliminated limescale issues across our production lines.",
+        "author": "Ana Rodrigues",
+        "role": "Operations Director, Porto",
+        "type": "Industrial"
+      }
+    ],
+    "cta": "See the difference",
+    "prev": "Previous testimonial",
+    "next": "Next testimonial",
+    "goTo": "Go to testimonial"
+  },
+  "trust": {
+    "chapter": "Chapter VII",
+    "title": "Trust built drop by drop",
+    "subtitle": "Years of dedication, hundreds of projects and an unwavering commitment to excellence.",
+    "stats": [
+      { "value": "15+", "label": "Years of experience" },
+      { "value": "2,500+", "label": "Projects completed" },
+      { "value": "98%", "label": "Satisfied clients" },
+      { "value": "24/7", "label": "Technical support" }
+    ],
+    "certifications": [
+      "ISO 9001",
+      "DGAV Certification",
+      "Official Culligan Partner",
+      "5-year extended warranty"
+    ],
+    "journey": {
+      "title": "Your journey with us",
+      "steps": [
+        { "title": "First contact", "description": "Reach out by phone, email or our contact form." },
+        { "title": "Specialist analysis", "description": "We understand your water source and assess hardness and quality." },
+        { "title": "Technical visit", "description": "We conduct a site visit before any proposal, ensuring accuracy." },
+        { "title": "Tailored solution", "description": "We recommend the best solution for your home or business." }
+      ]
+    },
+    "faq": {
+      "title": "Frequently asked questions",
+      "items": [
+        {
+          "question": "How long does installation take?",
+          "answer": "Most residential installations are completed in a single day. Commercial projects depend on complexity, but we plan everything to minimise disruption."
+        },
+        {
+          "question": "Does treated water lose important minerals?",
+          "answer": "Our systems can include selective remineralisation, ensuring healthy, balanced water without compromising purity."
+        },
+        {
+          "question": "What is the maintenance cost?",
+          "answer": "We offer transparent maintenance plans with predictable costs. Preventive maintenance extends equipment life and guarantees consistent quality."
+        },
+        {
+          "question": "Do you treat borehole and well water?",
+          "answer": "Yes. We specialise in all water sources — mains, borehole, well and rainwater harvesting. Each source requires a different approach."
+        }
+      ]
+    }
+  },
+  "cta": {
+    "chapter": "Chapter VIII",
+    "title": "The invitation",
+    "subtitle": "Perfect water is not a luxury. It's a decision. And it starts with a conversation.",
+    "description": "Book a free technical analysis. No commitment. No pressure. Just clarity about the quality of water you consume every day.",
+    "primary": "Book a free analysis",
+    "secondary": "Call us now",
+    "phone": "+351 910 643 181",
+    "email": "geral@waterpro.pt"
+  },
+  "map": {
+    "tag": "Where we are",
+    "title": "Visit us",
+    "directions": "Open in Google Maps",
+    "iframeTitle": "Water Pro location map"
+  },
+  "contact": {
+    "title": "Get in touch",
+    "name": "Full name",
+    "email": "Email",
+    "phone": "Phone",
+    "type": "Client type",
+    "typeResidential": "Residential",
+    "typeCommercial": "Commercial",
+    "message": "Tell us about your situation",
+    "submit": "Send request",
+    "success": "Message sent successfully. We'll be in touch shortly.",
+    "privacy": "By submitting, you agree to the processing of your data in accordance with our privacy policy."
+  },
+  "residential": {
+    "meta": {
+      "title": "For Your Home — Premium Water Solutions | WaterPro",
+      "description": "Discover purifiers, water softeners, taps and smart systems for your home. Premium WaterPro catalogue with price inquiry."
+    },
+    "catalog": {
+      "title": "Choose your solution",
+      "subtitle": "Explore our complete range of home equipment. Filter by category, search by name and find the ideal solution for your situation."
+    }
+  },
+  "enterprise": {
+    "meta": {
+      "title": "For Your Business — Professional Water Solutions | WaterPro",
+      "description": "Water fountains, purifiers and professional systems for offices, hotels, restaurants and industry. Premium B2B WaterPro catalogue with quote on request."
+    },
+    "catalog": {
+      "title": "Equipment for your business",
+      "subtitle": "Explore professional water solutions for demanding businesses. Filter by category, sector and find the ideal equipment for your space."
+    }
+  },
+  "footer": {
+    "tagline": "Purity and health in every drop of water!",
+    "rights": "All rights reserved.",
+    "developedBy": "Developed by",
+    "afdigital": "AfDigital – Technology Solutions",
+    "coverage": "Service across all of Portugal.",
+    "phone": "+351 910 643 181",
+    "email": "geral@waterpro.pt",
+    "nif": "Tax ID: 123 456 789",
+    "shop": "Shop",
+    "home": "For Your Home",
+    "business": "For Your Business",
+    "about": "About Us",
+    "links": {
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "cookies": "Cookies"
+    },
+    "follow": "Follow us"
+  },
+  "about": {
+    "meta": {
+      "title": "About Us — Water Pro | Purity and health in every drop",
+      "description": "Discover the story, mission, vision and values of Water Pro — a reference in water purification solutions for homes and businesses across Portugal."
+    },
+    "tag": "Our story",
+    "title": "Who We Are",
+    "lead": "Water Pro was born with a simple and powerful purpose: to transform the water that flows into Portuguese homes and businesses into a genuine source of health, wellbeing and trust.",
+    "who": {
+      "tag": "Who We Are",
+      "title": "Specialists in pure water",
+      "p1": "Water Pro specialises in purification, wellbeing and sustainability solutions. We serve both residential and commercial clients, always focused on personalisation, trust and real results.",
+      "p2": "We believe every client is unique. That's why we don't sell off-the-shelf equipment — we study your water source (mains, well or rainwater), assess hardness and quality, and only then recommend the right solution for your context.",
+      "p3": "With nationwide coverage, we support every project from first contact through installation and maintenance, ensuring every drop from your tap reflects the commitment we make to you.",
+      "imageAlt": "Water Pro water treatment equipment"
+    },
+    "pillars": {
+      "srTitle": "Mission, vision and commitment",
+      "mission": {
+        "label": "Mission",
+        "title": "Health in every drop",
+        "description": "To deliver health and wellbeing through pure water and accessible technology — so families and businesses can enjoy the best water quality without complications."
+      },
+      "vision": {
+        "label": "Vision",
+        "title": "A reference in Portugal",
+        "description": "To be the reference in Portugal for personalised water purification solutions, recognised for technical excellence, client proximity and proven results."
+      },
+      "promise": {
+        "label": "Commitment",
+        "title": "Real results",
+        "description": "We carry out a technical visit before any proposal. Our focus isn't selling — it's solving. Every solution is tailor-made, with full transparency and ongoing support."
+      }
+    },
+    "values": {
+      "tag": "Our values",
+      "title": "What guides us every day",
+      "subtitle": "Trust, transparency, innovation, sustainability and service excellence aren't just words on our website — they're criteria that guide every decision we make.",
+      "items": [
+        {
+          "title": "Trust",
+          "description": "We build lasting relationships based on honesty, close support and delivering on our promises."
+        },
+        {
+          "title": "Transparency",
+          "description": "We explain every step of the process, with no fine print. Clients know exactly what they're getting and why."
+        },
+        {
+          "title": "Innovation",
+          "description": "We select cutting-edge osmosis, softening and purification technologies for top performance and energy efficiency."
+        },
+        {
+          "title": "Sustainability",
+          "description": "We promote conscious water use, plastic reduction and solutions that protect both the environment and your budget."
+        },
+        {
+          "title": "Service excellence",
+          "description": "From free analysis to installation and after-sales support, every interaction reflects our quality standard and respect for the client."
+        }
+      ]
+    },
+    "journey": {
+      "tag": "Your journey with us",
+      "title": "Every client is unique",
+      "subtitle": "We work with personalised technical support. After first contact, a Water Pro specialist reaches out to understand your situation and guide you to the right path.",
+      "steps": [
+        {
+          "title": "First contact",
+          "description": "Reach out by phone, WhatsApp, email or our contact form. Our team responds with care and speed."
+        },
+        {
+          "title": "Specialist analysis",
+          "description": "We understand your water source, assess hardness, impurities and the specific needs of your home or business."
+        },
+        {
+          "title": "Technical visit",
+          "description": "Before any proposal, we carry out an on-site technical visit to ensure accuracy, safety and real results."
+        },
+        {
+          "title": "Tailored solution",
+          "description": "Based on analysis and the visit, we recommend the best residential or business solution with professional installation and follow-up."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Ready to find your solution?",
+      "subtitle": "Explore our catalogues or contact us for a free water analysis.",
+      "residential": "View For Your Home",
+      "business": "View For Your Business"
+    }
+  },
+  "families": {
+    "tag": "Real lives, real water",
+    "title": "Protect those who matter most",
+    "subtitle": "Thousands of families across Portugal already trust WaterPro for pure, healthy water with unmatched taste — at every meal, every shower, every moment.",
+    "ctaTitle": "Your family deserves the best",
+    "ctaSubtitle": "Book a free analysis and discover the ideal solution for your home.",
+    "cta": "Talk to Gui",
+    "viewProduct": "View product details",
+    "swipeHint": "Swipe or use the arrows to see more →",
+    "prev": "Previous",
+    "next": "Next"
+  },
+  "faucet": {
+    "tag": "Visible purity",
+    "title": "Crystal-clear water, straight from the tap",
+    "subtitle": "See and feel the difference of WaterPro treated water — transparent, pure and with unmatched taste.",
+    "videoLabel": "Video of crystal-clear water flowing from a faucet",
+    "points": [
+      "Removal of limescale, chlorine and impurities",
+      "Neutral taste and odour in every drop",
+      "Protection for the whole family, every day"
+    ]
+  },
+  "gui": {
+    "name": "Gui",
+    "title": "WaterPro Assistant",
+    "role": "Virtual assistant · Online now",
+    "fab": "Talk to Gui",
+    "open": "Open Gui assistant",
+    "close": "Close assistant",
+    "reset": "Restart",
+    "typing": "Gui is typing...",
+    "welcome": "Hello! I'm Gui, WaterPro's virtual assistant. I'm here to help you find the perfect water solution. How can I help?",
+    "redirecting": "Perfect! I'll open WaterPro's WhatsApp with your message ready. A specialist will reply shortly.",
+    "steps": {
+      "intent": "Choose an option below or ask me anything:",
+      "faq-hardness": "Hard water (with limescale) damages heaters, appliances and your skin. Our water softeners eliminate limescale and extend the life of your equipment. Shall I schedule a free technical visit?",
+      "faq-ro": "Reverse osmosis removes up to 99% of contaminants, including heavy metals and chlorine. It's the most complete solution for drinking water. Shall I request a personalised quote for your home?",
+      "faq-visit": "The technical visit is free and with no obligation. A WaterPro technician analyses your water and recommends the best solution. Would you like to schedule?"
+    },
+    "options": {
+      "quoteHome": "Quote For Your Home",
+      "quoteBusiness": "Quote For Business",
+      "visit": "Schedule technical visit",
+      "analysis": "Free water analysis",
+      "faqHardness": "What is hard water?",
+      "faqRo": "How does reverse osmosis work?",
+      "human": "Talk to a specialist",
+      "back": "Back to menu",
+      "restart": "New conversation"
+    }
+  },
+  "a11y": {
+    "skipToContent": "Skip to content",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu",
+    "languageSwitch": "Change language",
+    "scrollProgress": "Page progress"
+  }
+}

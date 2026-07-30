@@ -1,0 +1,17 @@
+{
+  "name": "Water Pro",
+  "short_name": "Water Pro",
+  "description": "Pureza e saúde em cada gota de água!",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1a7fb8",
+  "icons": [
+    {
+      "src": "/logo.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ]
+}
