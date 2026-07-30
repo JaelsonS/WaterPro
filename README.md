@@ -1,7 +1,7 @@
 # WaterPro — Site Demo de Apresentação
 
 > **Site demonstrativo** desenvolvido para apresentação comercial à empresa **Water Pro** (waterpro.pt).  
-> **Demo online:** [https://waterpro-demo.vercel.app](https://waterpro-demo.vercel.app)
+> **Demo online:** [https://waterpro-chi.vercel.app](https://waterpro-chi.vercel.app)
 
 ---
 
@@ -145,7 +145,7 @@ O site ficará disponível em `http://localhost:3000` em modo produção.
 3. Framework preset: **Next.js** (detetado automaticamente)
 4. Clique em **Deploy**
 
-Após o deploy, substitua o link fictício no topo deste README pelo URL real (ex: `https://waterpro.vercel.app`).
+Após o deploy, o site fica disponível em [https://waterpro-chi.vercel.app](https://waterpro-chi.vercel.app).
 
 ---
 

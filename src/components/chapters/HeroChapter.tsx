@@ -1,11 +1,11 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { media } from "@/lib/media";
-import { ImageCarousel } from "@/components/ui/ImageCarousel";
+import { HeroBackdrop } from "@/components/ui/HeroBackdrop";
 import { HeroWaterfall } from "@/components/ui/HeroWaterfall";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { Reveal } from "@/components/ui/Reveal";
@@ -25,11 +25,14 @@ export function HeroChapter() {
   const [typed, setTyped] = useState("");
   const [done, setDone] = useState(false);
 
-  const slides = media.hero.slides.map((slide, i) => ({
-    src: slide.src,
-    alt: slide.alt,
-    caption: t(`slides.${i}`),
-  }));
+  const slides = useMemo(
+    () =>
+      media.hero.slides.map((slide) => ({
+        src: slide.src,
+        alt: slide.alt,
+      })),
+    []
+  );
 
   useEffect(() => {
     if (prefersReducedMotion()) {
@@ -88,22 +91,10 @@ export function HeroChapter() {
       className="relative z-[5] min-h-[100svh] overflow-hidden bg-ice isolate"
       aria-label={t("title")}
     >
-      {/* Sequência full-bleed — passa sozinha, ordem aleatória */}
-      <ImageCarousel
-        slides={slides}
-        className="absolute inset-0 z-0 h-full w-full"
-        imageClassName="object-cover"
-        showCaptions={false}
-        showDots
-        showArrows={false}
-        overlay="hero"
-        priority
-        interval={5500}
-        shuffle
-        autoplayLocked
-      />
+      {/* Sequência full-bleed — fotos atmosféricas, ordem aleatória */}
+      <HeroBackdrop slides={slides} className="z-0" interval={5500} />
 
-      <div className="pointer-events-none absolute inset-0 z-[1] opacity-30">
+      <div className="pointer-events-none absolute inset-0 z-[1] opacity-25">
         <HeroWaterfall />
       </div>
 
