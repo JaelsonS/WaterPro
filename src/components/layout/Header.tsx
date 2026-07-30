@@ -63,6 +63,7 @@ export function Header() {
   const linkClass = (href: string) =>
     cn(
       "text-sm font-medium transition-colors duration-300",
+      immersive && "drop-shadow-[0_1px_10px_rgba(255,255,255,0.75)]",
       pathname === href || (href === "/" && isHome)
         ? "text-azure"
         : immersive
@@ -74,7 +75,7 @@ export function Header() {
     <header
       className={cn(
         "fixed top-0 left-0 right-0 z-50 isolate transition-all duration-700 ease-out",
-        immersive ? "bg-transparent py-6" : "header-glass py-3"
+        immersive ? "header-immersive py-6" : "header-glass py-3"
       )}
       style={{ transform: "translateZ(0)" }}
     >
@@ -111,7 +112,12 @@ export function Header() {
               <ellipse cx="16" cy="24" rx="3" ry="5" fill="white" opacity="0.4" />
             </svg>
           </div>
-          <span className="font-[family-name:var(--font-display)] text-2xl font-light tracking-wide text-ink">
+          <span
+            className={cn(
+              "font-[family-name:var(--font-display)] text-2xl font-semibold tracking-wide text-ink transition-all",
+              immersive && "drop-shadow-[0_1px_12px_rgba(255,255,255,0.85)]"
+            )}
+          >
             Water<span className="text-azure">Pro</span>
           </span>
         </Link>

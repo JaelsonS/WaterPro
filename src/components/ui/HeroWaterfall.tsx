@@ -113,7 +113,7 @@ export function HeroWaterfall() {
   return (
     <canvas
       ref={canvasRef}
-      className="pointer-events-none absolute inset-0 z-[2]"
+      className="pointer-events-none absolute inset-0 z-[2] opacity-40"
       aria-hidden="true"
     />
   );

@@ -116,10 +116,26 @@
   }
 
   .header-glass {
-    background: rgba(255, 255, 255, 0.82);
-    backdrop-filter: blur(20px) saturate(150%);
-    -webkit-backdrop-filter: blur(20px) saturate(150%);
-    box-shadow: 0 1px 0 rgba(226, 232, 240, 0.8);
+    background: rgba(255, 255, 255, 0.88);
+    border-bottom: 1px solid var(--color-glass-border);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+  }
+
+  .header-immersive {
+    background: transparent;
+    border-bottom: 1px solid transparent;
+    box-shadow: none;
+  }
+
+  @keyframes hero-kenburns {
+    from {
+      transform: scale(1.08);
+    }
+    to {
+      transform: scale(1);
+    }
   }
 
   .chapter-glow {

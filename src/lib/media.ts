@@ -23,12 +23,15 @@ export const media = {
   hero: {
     water: u("photo-1559827260-dc66d52bef19", 1920),
     slides: [
+      { src: productImages.residentialHero, alt: "WaterPro — soluções para a sua casa" },
       { src: productImages.coralPulse, alt: "Coral Wai Pulse — WaterPro" },
+      { src: productImages.enterpriseHero, alt: "WaterPro — soluções para a sua empresa" },
       { src: productImages.eco15, alt: "Eco 15 — WaterPro" },
-      { src: productImages.cosmos, alt: "Cosmos — WaterPro" },
       { src: productImages.blueOcean, alt: "Blue Ocean — WaterPro" },
       { src: productImages.hydronik, alt: "Hydronik H2 Live — WaterPro" },
+      { src: productImages.cosmos, alt: "Cosmos — WaterPro" },
       { src: productImages.ice80, alt: "ICE 80 — WaterPro" },
+      { src: productImages.faucetStill, alt: "Água cristalina WaterPro" },
     ],
   },
   residential: {

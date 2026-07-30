@@ -78,44 +78,38 @@ export function HeroChapter() {
 
   const beforeShown = typed.slice(0, Math.min(typed.length, titleBefore.length));
   const accentShown =
-    typed.length > titleBefore.length
-      ? typed.slice(titleBefore.length)
-      : "";
+    typed.length > titleBefore.length ? typed.slice(titleBefore.length) : "";
 
   return (
     <section
       ref={sectionRef}
       id="hero"
       data-hero-section
-      className="relative min-h-[100svh] overflow-hidden bg-white"
+      className="relative min-h-[100svh] overflow-hidden bg-ice"
       aria-label={t("title")}
     >
-      <HeroWaterfall />
-
+      {/* Sequência full-bleed — passa sozinha, ordem aleatória */}
       <ImageCarousel
         slides={slides}
-        className="absolute inset-0 z-[4] h-full w-full"
-        imageClassName="opacity-40"
+        className="absolute inset-0 z-0 h-full w-full"
         showCaptions={false}
         showDots
-        showArrows
-        overlay="gradient"
+        showArrows={false}
+        overlay="hero"
         priority
-        interval={7000}
+        interval={5500}
+        shuffle
+        autoplayLocked
       />
 
-      {/* Scrim extra para legibilidade do título */}
-      <div
-        className="pointer-events-none absolute inset-0 z-[5] bg-gradient-to-b from-white/80 via-white/70 to-white/95"
-        aria-hidden="true"
-      />
+      <HeroWaterfall />
 
       <div
         ref={contentRef}
         className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 pt-28 pb-32 text-center pointer-events-none"
       >
         <Reveal>
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.35em] text-azure">
+          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.35em] text-azure drop-shadow-[0_1px_12px_rgba(255,255,255,0.9)]">
             {t("tag")}
           </p>
         </Reveal>
@@ -124,10 +118,10 @@ export function HeroChapter() {
           className="max-w-5xl font-[family-name:var(--font-display)] text-[2.5rem] font-semibold leading-[1.12] tracking-tight sm:text-5xl md:text-7xl lg:text-[5.25rem] [word-break:normal] [overflow-wrap:normal]"
           aria-label={fullTitle}
         >
-          <span className="text-ink drop-shadow-[0_2px_24px_rgba(255,255,255,0.9)]">
+          <span className="text-ink drop-shadow-[0_2px_28px_rgba(255,255,255,0.95)]">
             {beforeShown}
           </span>
-          <span className="bg-gradient-to-r from-azure to-cyan bg-clip-text text-transparent drop-shadow-none">
+          <span className="bg-gradient-to-r from-azure to-cyan bg-clip-text text-transparent">
             {accentShown}
           </span>
           <span
@@ -139,7 +133,7 @@ export function HeroChapter() {
         </h1>
 
         <Reveal delay={0.45}>
-          <p className="mx-auto mt-8 max-w-2xl text-lg font-medium leading-relaxed text-ink-soft md:text-xl">
+          <p className="mx-auto mt-8 max-w-2xl text-lg font-medium leading-relaxed text-ink-soft drop-shadow-[0_1px_16px_rgba(255,255,255,0.9)] md:text-xl">
             {t("subtitle")}
           </p>
         </Reveal>
