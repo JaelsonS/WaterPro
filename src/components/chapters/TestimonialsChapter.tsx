@@ -6,7 +6,7 @@ import { Reveal } from "@/components/ui/Reveal";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { cn } from "@/lib/utils";
 
-const AUTO_INTERVAL_MS = 6000;
+const AUTO_INTERVAL_MS = 6500;
 
 export function TestimonialsChapter() {
   const t = useTranslations("testimonials");
@@ -14,7 +14,7 @@ export function TestimonialsChapter() {
   const [paused, setPaused] = useState(false);
   const touchStart = useRef(0);
 
-  const items = [0, 1, 2].map((i) => ({
+  const items = [0, 1, 2, 3].map((i) => ({
     quote: t(`items.${i}.quote`),
     author: t(`items.${i}.author`),
     role: t(`items.${i}.role`),
@@ -58,7 +58,7 @@ export function TestimonialsChapter() {
       <div className="absolute inset-0 bg-gradient-to-b from-white via-ocean/5 to-white" />
 
       <div className="relative z-10 mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mb-20 text-center">
+        <div className="mb-12 text-center md:mb-16">
           <Reveal>
             <h2
               id="testimonials-title"
@@ -71,6 +71,40 @@ export function TestimonialsChapter() {
             <p className="mx-auto mt-6 max-w-2xl text-lg text-ink-soft">
               {t("subtitle")}
             </p>
+          </Reveal>
+
+          <Reveal delay={0.15}>
+            <div className="mx-auto mt-10 inline-flex flex-col items-center gap-3 rounded-3xl border border-slate-line bg-white px-8 py-6 shadow-[0_8px_32px_rgba(15,23,42,0.06)] sm:flex-row sm:gap-8">
+              <div className="text-center sm:text-left">
+                <p className="font-[family-name:var(--font-display)] text-5xl font-semibold text-ink">
+                  {t("rating")}
+                </p>
+                <div className="mt-1 flex justify-center gap-0.5 text-amber-400 sm:justify-start" aria-hidden="true">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <span key={i}>★</span>
+                  ))}
+                </div>
+                <p className="mt-1 text-sm text-ink-muted">{t("ratingLabel")}</p>
+              </div>
+              <div className="hidden h-16 w-px bg-slate-line sm:block" />
+              <div className="text-center sm:text-left">
+                <p className="text-sm font-medium text-azure">{t("source")}</p>
+                <p className="mt-1 text-lg font-semibold text-ink">{t("reviewCount")}</p>
+                <div className="mt-3 space-y-1" aria-hidden="true">
+                  {[5, 4, 3, 2, 1].map((star) => (
+                    <div key={star} className="flex items-center gap-2">
+                      <span className="w-3 text-xs text-ink-muted">{star}</span>
+                      <div className="h-1.5 w-28 overflow-hidden rounded-full bg-slate-line">
+                        <div
+                          className="h-full rounded-full bg-amber-400"
+                          style={{ width: star === 5 ? "100%" : "0%" }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           </Reveal>
         </div>
 
@@ -88,14 +122,11 @@ export function TestimonialsChapter() {
         >
           <div className="glass-panel relative rounded-3xl p-10 md:p-16">
             <div className="mb-6 flex items-center justify-between gap-4">
-              <svg
-                className="h-10 w-10 text-azure/30"
-                fill="currentColor"
-                viewBox="0 0 24 24"
-                aria-hidden="true"
-              >
-                <path d="M14.017 21v-7.391c0-5.704 3.731-9.57 8.983-10.609l.995 2.151c-2.432.917-3.995 3.638-3.995 5.849h4v10h-9.983zm-14.017 0v-7.391c0-5.704 3.748-9.57 9-10.609l.996 2.151c-2.432.917-3.996 3.638-3.996 5.849h3.983v10h-9.983z" />
-              </svg>
+              <div className="flex items-center gap-1 text-amber-400" aria-label="5 estrelas">
+                {Array.from({ length: 5 }).map((_, i) => (
+                  <span key={i}>★</span>
+                ))}
+              </div>
               <span className="rounded-full bg-white/90 px-3 py-1 text-xs font-medium tracking-wide text-ink shadow-sm">
                 {active + 1} / {items.length}
               </span>
@@ -103,7 +134,7 @@ export function TestimonialsChapter() {
 
             <blockquote
               key={active}
-              className="min-h-[140px] animate-fade-in"
+              className="min-h-[160px] animate-fade-in"
               aria-live="polite"
             >
               <p className="font-[family-name:var(--font-display)] text-2xl font-semibold leading-relaxed text-ink md:text-3xl">
@@ -121,15 +152,13 @@ export function TestimonialsChapter() {
               </span>
             </div>
 
-            {/* Progress bar do autoplay */}
             <div className="absolute bottom-0 left-0 right-0 h-1 overflow-hidden rounded-b-3xl bg-slate-line/60">
               <div
                 key={`${active}-${paused}`}
                 className={cn(
-                  "h-full bg-azure/70 origin-left",
-                  !paused && "animate-[testimonial-progress_6s_linear]"
+                  "h-full origin-left bg-azure/70",
+                  !paused && "animate-[testimonial-progress_6.5s_linear]"
                 )}
-                style={paused ? { width: "0%" } : undefined}
               />
             </div>
           </div>

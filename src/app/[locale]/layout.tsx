@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, Outfit } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
-import { getMessages } from "next-intl/server";
+import { getMessages, getTranslations } from "next-intl/server";
 import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import "../globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
-import { CustomCursor } from "@/components/ui/CustomCursor";
+import { ClientEffects } from "@/components/providers/ClientEffects";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { CrystalWaterScroll } from "@/components/ui/CrystalWaterScroll";
-import { GuiAssistant } from "@/components/ui/GuiAssistant";
-import { WaterParticles } from "@/components/ui/WaterParticles";
 import {
   getOrganizationSchema,
   getLocalBusinessSchema,
@@ -33,16 +30,42 @@ const outfit = Outfit({
   display: "swap",
 });
 
-export const metadata: Metadata = {
-  metadataBase: new URL("https://waterpro.pt"),
-  icons: {
-    icon: "/logo.svg",
-    apple: "/logo.svg",
-  },
-};
-
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "meta" });
+
+  return {
+    title: {
+      default: t("title"),
+      template: "%s | WaterPro",
+    },
+    description: t("description"),
+    keywords: t("keywords"),
+    metadataBase: new URL("https://waterpro.pt"),
+    icons: {
+      icon: "/logo.svg",
+      apple: "/logo.svg",
+    },
+    openGraph: {
+      title: t("title"),
+      description: t("description"),
+      siteName: "WaterPro",
+      locale: locale === "pt" ? "pt_PT" : "en_US",
+      type: "website",
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
+  };
 }
 
 export default async function LocaleLayout({
@@ -90,16 +113,12 @@ export default async function LocaleLayout({
               />
             ))}
 
-            <CustomCursor />
-            <CrystalWaterScroll />
-            <WaterParticles />
+            <ClientEffects />
             <Header />
 
             <main id="main-content">{children}</main>
 
             <Footer />
-
-            <GuiAssistant />
           </SmoothScrollProvider>
         </NextIntlClientProvider>
       </body>

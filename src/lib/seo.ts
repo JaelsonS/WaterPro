@@ -42,6 +42,13 @@ export function getOrganizationSchema(locale: Locale) {
       addressRegion: COMPANY_ADDRESS.region,
       addressCountry: "PT",
     },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5.0",
+      reviewCount: "47",
+      bestRating: "5",
+      worstRating: "1",
+    },
   };
 }
 
@@ -61,6 +68,13 @@ export function getLocalBusinessSchema(locale: Locale) {
       addressLocality: COMPANY_ADDRESS.city,
       addressRegion: COMPANY_ADDRESS.region,
       addressCountry: "PT",
+    },
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: "5.0",
+      reviewCount: "47",
+      bestRating: "5",
+      worstRating: "1",
     },
     areaServed: {
       "@type": "Country",

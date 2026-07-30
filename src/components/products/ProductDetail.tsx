@@ -58,7 +58,7 @@ export function ProductDetail({ product }: ProductDetailProps) {
                 ))}
               </div>
 
-              <h1 className="font-[family-name:var(--font-display)] text-4xl font-light text-ink md:text-5xl">
+              <h1 className="font-[family-name:var(--font-display)] text-4xl font-semibold text-ink md:text-5xl">
                 {product.name}
               </h1>
 

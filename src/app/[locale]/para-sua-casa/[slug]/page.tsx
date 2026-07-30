@@ -7,7 +7,10 @@ import { SITE_URL } from "@/lib/config";
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
 export function generateStaticParams() {
-  return getAllProductSlugs().map((slug) => ({ slug }));
+  const locales = ["pt", "en"];
+  return getAllProductSlugs().flatMap((slug) =>
+    locales.map((locale) => ({ locale, slug }))
+  );
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {

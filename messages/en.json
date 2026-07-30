@@ -151,25 +151,35 @@
   "testimonials": {
     "chapter": "Chapter VI",
     "title": "Lives transformed",
-    "subtitle": "Real stories from those who decided water quality was non-negotiable.",
+    "subtitle": "Real Water Pro customer reviews on Google — 5.0 stars across 47 reviews.",
+    "rating": "5.0",
+    "ratingLabel": "stars on Google",
+    "reviewCount": "47 reviews",
+    "source": "Google",
     "items": [
       {
-        "quote": "After installation, the difference in water taste and my children's skin was immediate. We never looked back.",
-        "author": "Maria Santos",
-        "role": "Homeowner, Cascais",
-        "type": "Residential"
+        "quote": "High-quality purifiers that truly deliver what they promise. Worth investing in these Water Pro machines, plus excellent service and professionalism. Congratulations to WATER PRO.",
+        "author": "Sileia Lima",
+        "role": "Google customer",
+        "type": "Google · New"
       },
       {
-        "quote": "Our restaurant demands perfect water in every dish. WaterPro delivered a solution that exceeded all expectations.",
-        "author": "João Ferreira",
-        "role": "Executive Chef, Lisbon",
-        "type": "Commercial"
+        "quote": "They are impeccable at their work and help with the best solution for each case.",
+        "author": "Google customer",
+        "role": "Verified review",
+        "type": "Google"
       },
       {
-        "quote": "We reduced maintenance costs by 60% and eliminated limescale issues across our production lines.",
-        "author": "Ana Rodrigues",
-        "role": "Operations Director, Porto",
-        "type": "Industrial"
+        "quote": "Great service, good quality, several models, affordable price.",
+        "author": "Google customer",
+        "role": "Verified review",
+        "type": "Google"
+      },
+      {
+        "quote": "Best in the region — now at home we have quality water. Congratulations.",
+        "author": "Google customer",
+        "role": "Verified review",
+        "type": "Google"
       }
     ],
     "cta": "See the difference",

@@ -151,25 +151,35 @@
   "testimonials": {
     "chapter": "Capítulo VI",
     "title": "Vidas transformadas",
-    "subtitle": "Histórias reais de quem decidiu que a qualidade da água não era negociável.",
+    "subtitle": "Avaliações reais de clientes Water Pro no Google — 5,0 estrelas em 47 críticas.",
+    "rating": "5,0",
+    "ratingLabel": "estrelas no Google",
+    "reviewCount": "47 críticas",
+    "source": "Google",
     "items": [
       {
-        "quote": "Depois da instalação, a diferença no sabor da água e na pele dos meus filhos foi imediata. Não voltamos atrás.",
-        "author": "Maria Santos",
-        "role": "Proprietária, Cascais",
-        "type": "Residencial"
+        "quote": "Purificadores de alta qualidade e que realmente cumpre o que promete. Vale a pena investir nestas máquinas perfeitas da Water Pro, além de contar com um excelente atendimento e profissionalismo. Parabéns à WATER PRO.",
+        "author": "Sileia Lima",
+        "role": "Cliente Google",
+        "type": "Google · Nova"
       },
       {
-        "quote": "O nosso restaurante exige água perfeita em cada prato. A WaterPro entregou uma solução que superou todas as expectativas.",
-        "author": "João Ferreira",
-        "role": "Chef Executivo, Lisboa",
-        "type": "Comercial"
+        "quote": "São impecáveis no trabalho e ajudam com a melhor solução para cada um dos casos.",
+        "author": "Cliente Google",
+        "role": "Avaliação verificada",
+        "type": "Google"
       },
       {
-        "quote": "Reduzimos custos de manutenção em 60% e eliminámos problemas de calcário nas nossas linhas de produção.",
-        "author": "Ana Rodrigues",
-        "role": "Diretora de Operações, Porto",
-        "type": "Industrial"
+        "quote": "Atendimento ótimo, boa qualidade, vários modelos, preço acessível.",
+        "author": "Cliente Google",
+        "role": "Avaliação verificada",
+        "type": "Google"
+      },
+      {
+        "quote": "Melhor da região, agora em casa temos água com qualidade. Meus parabéns.",
+        "author": "Cliente Google",
+        "role": "Avaliação verificada",
+        "type": "Google"
       }
     ],
     "cta": "Veja a diferença",
