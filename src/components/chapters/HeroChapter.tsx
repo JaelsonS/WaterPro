@@ -102,62 +102,70 @@ export function HeroChapter() {
         ref={contentRef}
         className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 pt-28 pb-32 text-center pointer-events-none"
       >
-        <Reveal>
-          <p className="mb-6 text-xs font-semibold uppercase tracking-[0.35em] text-azure drop-shadow-[0_1px_12px_rgba(255,255,255,0.9)]">
-            {t("tag")}
-          </p>
-        </Reveal>
-
-        <h1
-          className="max-w-5xl font-[family-name:var(--font-display)] text-[2.5rem] font-semibold leading-[1.12] tracking-tight sm:text-5xl md:text-7xl lg:text-[5.25rem] [word-break:normal] [overflow-wrap:normal]"
-          aria-label={fullTitle}
-        >
-          <span className="text-ink drop-shadow-[0_2px_28px_rgba(255,255,255,0.95)]">
-            {beforeShown}
-          </span>
-          <span className="bg-gradient-to-r from-azure to-cyan bg-clip-text text-transparent">
-            {accentShown}
-          </span>
-          <span
-            className={`ml-0.5 inline-block h-[0.85em] w-[3px] translate-y-[0.08em] rounded-sm bg-azure align-baseline ${
-              done ? "animate-pulse opacity-0" : "animate-pulse opacity-100"
-            }`}
+        <div className="relative mx-auto w-full max-w-5xl">
+          {/* Halo de leitura — sem “card”, só contraste atrás do texto */}
+          <div
+            className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[120%] w-[110%] -translate-x-1/2 -translate-y-1/2 rounded-[50%] bg-white/55 blur-2xl"
             aria-hidden="true"
           />
-        </h1>
 
-        <Reveal delay={0.45}>
-          <p className="mx-auto mt-8 max-w-2xl text-lg font-medium leading-relaxed text-ink-soft drop-shadow-[0_1px_16px_rgba(255,255,255,0.9)] md:text-xl">
-            {t("subtitle")}
-          </p>
-        </Reveal>
+          <Reveal>
+            <p className="mb-6 text-xs font-bold uppercase tracking-[0.35em] text-azure [text-shadow:0_1px_0_rgba(255,255,255,1),0_0_24px_rgba(255,255,255,0.95)]">
+              {t("tag")}
+            </p>
+          </Reveal>
 
-        <Reveal delay={0.65}>
-          <div className="mt-12 flex flex-col items-center justify-center gap-4 pointer-events-auto sm:flex-row">
-            <MagneticButton
-              variant="primary"
-              onClick={() =>
-                document.getElementById("families")?.scrollIntoView({ behavior: "smooth" })
-              }
-            >
-              {t("cta")}
-            </MagneticButton>
-            <MagneticButton
-              variant="secondary"
-              onClick={() => window.dispatchEvent(new CustomEvent("open-gui"))}
-            >
-              {t("ctaGui")}
-            </MagneticButton>
-          </div>
-        </Reveal>
+          <h1
+            className="max-w-5xl font-[family-name:var(--font-display)] text-[2.5rem] font-semibold leading-[1.12] tracking-tight sm:text-5xl md:text-7xl lg:text-[5.25rem] [word-break:normal] [overflow-wrap:normal]"
+            aria-label={fullTitle}
+          >
+            <span className="text-ink [text-shadow:0_2px_0_rgba(255,255,255,0.95),0_4px_32px_rgba(255,255,255,1),0_0_60px_rgba(255,255,255,0.9)]">
+              {beforeShown}
+            </span>
+            <span className="text-azure [text-shadow:0_2px_0_rgba(255,255,255,0.95),0_4px_28px_rgba(255,255,255,1)]">
+              {accentShown}
+            </span>
+            <span
+              className={`ml-0.5 inline-block h-[0.85em] w-[3px] translate-y-[0.08em] rounded-sm bg-azure align-baseline shadow-[0_0_12px_rgba(255,255,255,1)] ${
+                done ? "animate-pulse opacity-0" : "animate-pulse opacity-100"
+              }`}
+              aria-hidden="true"
+            />
+          </h1>
+
+          <Reveal delay={0.45}>
+            <p className="mx-auto mt-8 max-w-2xl text-lg font-semibold leading-relaxed text-ink md:text-xl [text-shadow:0_1px_0_rgba(255,255,255,1),0_0_28px_rgba(255,255,255,0.95)]">
+              {t("subtitle")}
+            </p>
+          </Reveal>
+
+          <Reveal delay={0.65}>
+            <div className="mt-12 flex flex-col items-center justify-center gap-4 pointer-events-auto sm:flex-row">
+              <MagneticButton
+                variant="primary"
+                onClick={() =>
+                  document.getElementById("families")?.scrollIntoView({ behavior: "smooth" })
+                }
+              >
+                {t("cta")}
+              </MagneticButton>
+              <MagneticButton
+                variant="secondary"
+                onClick={() => window.dispatchEvent(new CustomEvent("open-gui"))}
+              >
+                {t("ctaGui")}
+              </MagneticButton>
+            </div>
+          </Reveal>
+        </div>
 
         <div className="absolute bottom-10 left-1/2 z-10 -translate-x-1/2">
           <div className="flex flex-col items-center gap-3">
-            <span className="text-xs font-medium uppercase tracking-[0.2em] text-ink-soft">
+            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-ink [text-shadow:0_1px_8px_rgba(255,255,255,1)]">
               {t("scroll")}
             </span>
             <div className="flex flex-col items-center gap-1">
-              <div className="h-2 w-2 animate-bounce rounded-full bg-azure" />
+              <div className="h-2 w-2 animate-bounce rounded-full bg-azure shadow-[0_0_10px_rgba(255,255,255,1)]" />
               <div className="h-10 w-px bg-gradient-to-b from-azure/80 to-transparent" />
             </div>
           </div>

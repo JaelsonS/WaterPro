@@ -87,9 +87,10 @@ export function HeroBackdrop({
         />
       ))}
 
-      {/* Overlay: tipografia legível, imagem visível no centro */}
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/50 via-white/25 to-white/75" />
-      <div className="pointer-events-none absolute inset-x-0 top-0 h-28 bg-gradient-to-b from-white/40 to-transparent" />
+      {/* Overlay forte no centro — texto legível, imagem ainda presente */}
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/70 via-white/55 to-white/80" />
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_75%_55%_at_50%_45%,rgba(255,255,255,0.72)_0%,rgba(255,255,255,0.2)_55%,transparent_75%)]" />
+      <div className="pointer-events-none absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/55 to-transparent" />
 
       {ordered.length > 1 && (
         <div className="absolute bottom-8 left-1/2 z-20 flex -translate-x-1/2 items-center gap-2 rounded-full bg-white/75 px-3 py-2 shadow-sm backdrop-blur-md">
