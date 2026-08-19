@@ -88,8 +88,8 @@ export function useWhatsAppDashboard(sessionToken: string | null) {
   );
 
   const refresh = useCallback(async () => {
-    const token = sessionToken ? await getAccessToken() : null;
-    if (!token) return;
+    if (!sessionToken) return;
+    const token = (await getAccessToken()) ?? sessionToken;
     setLoading(true);
     setLoadError(null);
     try {

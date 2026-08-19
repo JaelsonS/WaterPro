@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { getSupabaseClient } from "@/lib/supabase/getSupabaseClient";
 import { readPendingRegistration, clearPendingRegistration } from "@/lib/auth/pendingRegistration";
 import { provisionCompanyIfNeeded } from "@/lib/auth/provisionCompany";
-import { getAccessToken } from "@/lib/auth/accessToken";
+import { getAccessToken, isAccessTokenNearExpiry } from "@/lib/auth/accessToken";
 
 export type DashboardAuthState = {
   sessionToken: string | null;
@@ -46,16 +46,21 @@ export function useDashboardAuth(): DashboardAuthState {
         return;
       }
 
-      const token = await getAccessToken();
+      let token = session.access_token;
+      if (isAccessTokenNearExpiry(token)) {
+        token = (await getAccessToken()) ?? token;
+      }
+
       if (cancelled) return;
 
       setSessionToken(token);
-      setUserEmail(token ? (session.user?.email ?? null) : null);
+      setUserEmail(session.user?.email ?? null);
       setAuthReady(true);
     }
 
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      void applySession(session);
+      // Defer async work — Supabase recommends avoiding await directly in this callback.
+      void Promise.resolve().then(() => applySession(session));
     });
 
     const onAuthExpired = () => {

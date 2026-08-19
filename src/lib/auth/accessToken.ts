@@ -1,23 +1,38 @@
 import { getSupabaseClient } from "@/lib/supabase/getSupabaseClient";
 
-/** Returns a validated access token, refreshing the Supabase session when needed. */
+function getJwtExp(token: string): number | null {
+  try {
+    const payload = JSON.parse(
+      atob(token.split(".")[1].replace(/-/g, "+").replace(/_/g, "/")),
+    ) as { exp?: number };
+    return typeof payload.exp === "number" ? payload.exp : null;
+  } catch {
+    return null;
+  }
+}
+
+function isTokenExpired(token: string, skewSeconds = 30): boolean {
+  const exp = getJwtExp(token);
+  if (!exp) return false;
+  return Date.now() / 1000 >= exp - skewSeconds;
+}
+
+export function isAccessTokenNearExpiry(token: string): boolean {
+  return isTokenExpired(token);
+}
+
+/** Returns the current access token, refreshing the Supabase session when near expiry. */
 export async function getAccessToken(): Promise<string | null> {
   const supabase = getSupabaseClient();
   if (!supabase) return null;
 
-  const { data: userData, error: userError } = await supabase.auth.getUser();
-  if (!userError && userData.user) {
-    const { data: sessionData } = await supabase.auth.getSession();
-    return sessionData.session?.access_token ?? null;
-  }
+  const { data: sessionData } = await supabase.auth.getSession();
+  const token = sessionData.session?.access_token ?? null;
+  if (!token) return null;
 
-  const { data: refreshed, error: refreshError } = await supabase.auth.refreshSession();
-  if (refreshError || !refreshed.session?.access_token) return null;
+  if (!isTokenExpired(token)) return token;
 
-  const { data: retryUser, error: retryError } = await supabase.auth.getUser();
-  if (retryError || !retryUser.user) return null;
-
-  return refreshed.session.access_token;
+  return refreshAccessToken();
 }
 
 export async function refreshAccessToken(): Promise<string | null> {

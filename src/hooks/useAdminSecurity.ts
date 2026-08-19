@@ -32,14 +32,14 @@ export function useAdminSecurity(sessionToken: string | null) {
   );
 
   const refresh = useCallback(async () => {
-    const token = sessionToken ? await getAccessToken() : null;
-    if (!token) {
+    if (!sessionToken) {
       setStatus(null);
       return;
     }
     setLoading(true);
     setError(null);
     try {
+      const token = (await getAccessToken()) ?? sessionToken;
       const res = await waterproApiFetch<SecurityStatusResponse>("/api/v1/auth/security-status", {
         method: "GET",
         token,
