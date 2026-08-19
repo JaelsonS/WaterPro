@@ -100,6 +100,15 @@ app.use(
   }),
 );
 
+// Render (and outros load balancers) fazem probe em `/` por defeito.
+app.get("/", (_req, res) => {
+  res.status(200).json({
+    status: "ok",
+    service: "fluxora-api",
+    health: "/api/v1/health",
+  });
+});
+
 app.use(notFoundHandler);
 app.use(errorHandler);
 

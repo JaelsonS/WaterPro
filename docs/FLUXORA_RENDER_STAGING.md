@@ -20,13 +20,21 @@
 | **Name** | `fluxora-api-staging` (sugestão) |
 | **Root Directory** | `backend` |
 | **Runtime** | Node |
-| **Build Command** | `npm install && npm run build` |
+| **Build Command** | `npm ci && npm run build && npm prune --omit=dev` |
 | **Start Command** | `npm start` |
 | **Health Check Path** | `/api/v1/health` |
 
 ## 3. Node version
 
-Render usa `engines` do `backend/package.json`: **Node >= 20**
+Render usa `backend/.node-version` e `engines` do `package.json`: **Node 20 LTS** (evitar Node 26 automático).
+
+## 3.1 Logs comuns (não são falhas)
+
+| Log | Significado |
+|-----|-------------|
+| `5 vulnerabilities` no `npm install` | Dependências de **dev** (vitest/vite) — corrigir com upgrade local; após `npm prune --omit=dev` não entram no runtime |
+| `NOT_FOUND` em `HEAD /` | Probe do Render em `/` antes do health check — usar **Health Check Path** `/api/v1/health` ou a rota `/` (200) |
+| `Your service is live` | Deploy **OK** — validar com `curl .../api/v1/health` |
 
 ## 4. Environment Variables
 
