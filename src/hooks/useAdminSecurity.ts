@@ -62,15 +62,17 @@ export function useAdminSecurity(sessionToken: string | null) {
     const { data: factors, error: listError } = await supabase.auth.mfa.listFactors();
     if (listError) throw listError;
 
-    const verified = factors.totp.find((f) => f.status === "verified");
+    const totpFactors = factors.all.filter((f) => f.factor_type === "totp");
+    const verified = totpFactors.find((f) => f.status === "verified");
     if (verified) {
       setEnrollState(null);
       await refresh();
       return;
     }
 
-    for (const factor of factors.totp.filter((f) => f.status !== "verified")) {
-      await supabase.auth.mfa.unenroll({ factorId: factor.id });
+    for (const factor of totpFactors.filter((f) => f.status !== "verified")) {
+      const { error: unenrollError } = await supabase.auth.mfa.unenroll({ factorId: factor.id });
+      if (unenrollError) throw unenrollError;
     }
 
     const { data, error: enrollError } = await supabase.auth.mfa.enroll({
@@ -114,7 +116,9 @@ export function useAdminSecurity(sessionToken: string | null) {
       if (!supabase) throw new Error("Supabase não configurado");
       const { data: factors, error: listError } = await supabase.auth.mfa.listFactors();
       if (listError) throw listError;
-      const totpFactor = factors.totp.find((f) => f.status === "verified");
+      const totpFactor =
+        factors.totp[0] ??
+        factors.all.find((f) => f.factor_type === "totp" && f.status === "verified");
       if (!totpFactor) throw new Error("MFA não configurado.");
 
       const { error: verifyError } = await supabase.auth.mfa.challengeAndVerify({
