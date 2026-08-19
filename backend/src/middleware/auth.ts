@@ -12,7 +12,7 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
 
   try {
     const supabase = createSupabaseUserClient(token);
-    const { data: userData, error: userError } = await supabase.auth.getUser();
+    const { data: userData, error: userError } = await supabase.auth.getUser(token);
     if (userError || !userData.user) {
       return next(new HttpError({ statusCode: 401, code: "UNAUTHORIZED", message: "Invalid token" }));
     }
