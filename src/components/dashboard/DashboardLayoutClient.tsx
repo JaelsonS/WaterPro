@@ -3,6 +3,7 @@
 import { usePathname } from "@/i18n/routing";
 import { DashboardAuthProvider, useDashboardAuthContext } from "./DashboardAuthProvider";
 import { AdminSecurityProvider } from "./AdminSecurityProvider";
+import { MfaEnrollmentGate } from "./MfaEnrollmentGate";
 import { DashboardLogin } from "./DashboardLogin";
 import { DashboardShell } from "./DashboardShell";
 import { ToastProvider } from "@/components/ui/Toast";
@@ -110,7 +111,9 @@ export function DashboardLayoutClient({ children }: { children: ReactNode }) {
       <DashboardAuthProvider>
         <DashboardRouteGuard>
           <AdminSecurityProvider>
-            <DashboardChrome>{children}</DashboardChrome>
+            <MfaEnrollmentGate>
+              <DashboardChrome>{children}</DashboardChrome>
+            </MfaEnrollmentGate>
           </AdminSecurityProvider>
         </DashboardRouteGuard>
       </DashboardAuthProvider>

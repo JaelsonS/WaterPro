@@ -7,5 +7,5 @@ export const DASHBOARD_NAV = [
 
 export function isDashboardPath(pathname: string | null): boolean {
   if (!pathname) return false;
-  return pathname === "/dashboard" || pathname.startsWith("/dashboard/");
+  return pathname === "/dashboard" || pathname.startsWith("/dashboard/") || pathname === "/cadastro";
 }

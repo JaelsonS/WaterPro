@@ -10,6 +10,10 @@ declare module "express-serve-static-core" {
       companyId?: string;
       role?: string;
     };
+    authUser?: {
+      userId: string;
+      email: string | null;
+    };
   }
 }
 

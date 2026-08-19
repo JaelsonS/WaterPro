@@ -1,5 +1,6 @@
 "use client";
 
+import { Link } from "@/i18n/routing";
 import type { FormEvent } from "react";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 
@@ -70,6 +71,13 @@ export function DashboardLogin({
             {loading ? "A entrar…" : "Entrar"}
           </MagneticButton>
         </form>
+
+        <p className="mt-6 text-center text-sm text-ink-muted">
+          Ainda não tem conta?{" "}
+          <Link href="/cadastro" className="font-medium text-azure hover:underline">
+            Criar conta
+          </Link>
+        </p>
       </div>
     </div>
   );

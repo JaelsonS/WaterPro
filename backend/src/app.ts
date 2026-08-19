@@ -15,6 +15,7 @@ import { conversationsRouter } from "./routes/conversations";
 import { whatsappOnboardingRouter } from "./routes/whatsappOnboarding";
 import { auditEventsRouter } from "./routes/auditEvents";
 import { authSecurityRouter } from "./routes/authSecurity";
+import { authRegisterRouter } from "./routes/authRegister";
 import { createPublicAIChatRouter } from "./routes/public/publicAIChatRouter";
 import { createSupabasePublicAIChatDeps } from "./repositories/public/createSupabasePublicAIChatDeps";
 import { requestIdMiddleware } from "./middleware/requestId";
@@ -70,6 +71,7 @@ app.use("/api/v1", conversationsRouter);
 app.use("/api/v1", whatsappOnboardingRouter);
 app.use("/api/v1", auditEventsRouter);
 app.use("/api/v1", authSecurityRouter);
+app.use("/api/v1", authRegisterRouter);
 app.use("/api/v1", whatsappWebhookRouter);
 
 const publicDeps = createSupabasePublicDeps();
