@@ -7,6 +7,7 @@ import { AdminSecurityProvider } from "./AdminSecurityProvider";
 import { MfaEnrollmentGate } from "./MfaEnrollmentGate";
 import { DashboardLogin } from "./DashboardLogin";
 import { DashboardShell } from "./DashboardShell";
+import { DashboardFluxoraAssistant } from "./DashboardFluxoraAssistant";
 import { ToastProvider } from "@/components/ui/Toast";
 import { getSupabaseClient } from "@/lib/supabase/getSupabaseClient";
 import { useEffect, useState, type FormEvent, type ReactNode } from "react";
@@ -97,7 +98,12 @@ function DashboardRouteGuard({ children }: { children: ReactNode }) {
     );
   }
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <DashboardFluxoraAssistant />
+    </>
+  );
 }
 
 function DashboardChrome({ children }: { children: ReactNode }) {

@@ -1,8 +1,9 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/routing";
+import { buildGeneralWhatsAppUrl } from "@/lib/config";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 import { LanguageSwitcher } from "@/components/ui/LanguageSwitcher";
 import { cn } from "@/lib/utils";
@@ -10,6 +11,7 @@ import { cn } from "@/lib/utils";
 export function Header() {
   const t = useTranslations("nav");
   const tA11y = useTranslations("a11y");
+  const locale = useLocale() as "pt" | "en";
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [immersive, setImmersive] = useState(true);
@@ -54,7 +56,7 @@ export function Header() {
 
   const handleCta = () => {
     if (isHome) {
-      window.dispatchEvent(new CustomEvent("open-gui"));
+      window.open(buildGeneralWhatsAppUrl(locale), "_blank", "noopener,noreferrer");
       return;
     }
     window.location.href = "/#contact";

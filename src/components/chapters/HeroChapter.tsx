@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { media } from "@/lib/media";
+import { buildGeneralWhatsAppUrl } from "@/lib/config";
 import { HeroBackdrop } from "@/components/ui/HeroBackdrop";
 import { HeroWaterfall } from "@/components/ui/HeroWaterfall";
 import { MagneticButton } from "@/components/ui/MagneticButton";
@@ -15,6 +16,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export function HeroChapter() {
   const t = useTranslations("hero");
+  const locale = useLocale() as "pt" | "en";
   const sectionRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
 
@@ -151,7 +153,9 @@ export function HeroChapter() {
               </MagneticButton>
               <MagneticButton
                 variant="secondary"
-                onClick={() => window.dispatchEvent(new CustomEvent("open-gui"))}
+                onClick={() =>
+                  window.open(buildGeneralWhatsAppUrl(locale), "_blank", "noopener,noreferrer")
+                }
               >
                 {t("ctaGui")}
               </MagneticButton>

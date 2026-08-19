@@ -4,6 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from "react";
 import { getSupabaseClient } from "@/lib/supabase/getSupabaseClient";
 import { readPendingRegistration, clearPendingRegistration } from "@/lib/auth/pendingRegistration";
 import { provisionCompanyIfNeeded } from "@/lib/auth/provisionCompany";
+import { getAccessToken } from "@/lib/auth/accessToken";
 
 export type DashboardAuthState = {
   sessionToken: string | null;
@@ -33,18 +34,46 @@ export function useDashboardAuth(): DashboardAuthState {
       return;
     }
 
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSessionToken(session?.access_token ?? null);
-      setUserEmail(session?.user?.email ?? null);
+    let cancelled = false;
+
+    async function applySession(session: { access_token?: string; user?: { email?: string | null } } | null) {
+      if (!session?.access_token) {
+        if (!cancelled) {
+          setSessionToken(null);
+          setUserEmail(null);
+          setAuthReady(true);
+        }
+        return;
+      }
+
+      const token = await getAccessToken();
+      if (cancelled) return;
+
+      setSessionToken(token);
+      setUserEmail(token ? (session.user?.email ?? null) : null);
       setAuthReady(true);
-    });
+    }
 
     const { data: sub } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSessionToken(session?.access_token ?? null);
-      setUserEmail(session?.user?.email ?? null);
+      void applySession(session);
     });
 
-    return () => sub.subscription.unsubscribe();
+    const onAuthExpired = () => {
+      void supabase.auth.signOut({ scope: "local" }).then(() => {
+        setSessionToken(null);
+        setUserEmail(null);
+        setCanManage(null);
+        setAuthError("Sessão expirada. Entre novamente.");
+      });
+    };
+
+    window.addEventListener("waterpro:auth-expired", onAuthExpired);
+
+    return () => {
+      cancelled = true;
+      sub.subscription.unsubscribe();
+      window.removeEventListener("waterpro:auth-expired", onAuthExpired);
+    };
   }, [supabase]);
 
   const signIn = useCallback(

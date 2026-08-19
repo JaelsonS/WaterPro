@@ -418,6 +418,37 @@
       "Proteção para toda a família, todos os dias"
     ]
   },
+  "fluxoraAssistant": {
+    "name": "Assistente Fluxora",
+    "title": "Guia de configuração Fluxora",
+    "role": "Onboarding · Ajuda na configuração",
+    "fab": "Precisa de ajuda?",
+    "open": "Abrir assistente de configuração",
+    "close": "Fechar assistente",
+    "reset": "Reiniciar",
+    "typing": "A preparar resposta…",
+    "welcome": "Olá! Sou o assistente da Fluxora. Posso guiá-lo na configuração da sua conta: segurança (MFA), WhatsApp, vendedores e muito mais.",
+    "steps": {
+      "menu": "Escolha o que quer configurar agora:",
+      "gettingStarted": "Recomendamos esta ordem:\n\n1. Ativar MFA em Definições\n2. Conectar WhatsApp (Meta Embedded Signup)\n3. Cadastrar vendedores\n4. Rever o dashboard\n\nUse os botões abaixo para ir direto a cada passo.",
+      "mfa": "Em Definições, ative a autenticação de dois fatores (MFA). É obrigatória para proteger dados sensíveis e aceder a áreas administrativas. Siga o QR code com uma app como Google Authenticator ou Authy.",
+      "whatsapp": "Em WhatsApp, use o Embedded Signup da Meta para ligar o número da sua empresa. Certifique-se de que a verificação comercial da Meta está concluída e que o domínio está autorizado na app Fluxora.",
+      "sellers": "Em Vendedores, adicione a equipa comercial. Cada vendedor recebe acesso às conversas atribuídas. Comece pelo administrador e depois convide os restantes membros."
+    },
+    "context": {
+      "mfa": "Está em Definições — aqui configura MFA e dados da empresa.",
+      "whatsapp": "Está na área WhatsApp — posso ajudá-lo a conectar o número via Meta.",
+      "sellers": "Está em Vendedores — posso explicar como adicionar a equipa."
+    },
+    "options": {
+      "gettingStarted": "Por onde começo?",
+      "mfa": "Configurar MFA",
+      "whatsapp": "Conectar WhatsApp",
+      "sellers": "Adicionar vendedores",
+      "back": "Voltar ao menu",
+      "restart": "Nova conversa"
+    }
+  },
   "gui": {
     "name": "Gui",
     "title": "Assistente WaterPro",

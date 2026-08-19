@@ -418,6 +418,37 @@
       "Protection for the whole family, every day"
     ]
   },
+  "fluxoraAssistant": {
+    "name": "Fluxora Assistant",
+    "title": "Fluxora setup guide",
+    "role": "Onboarding · Setup help",
+    "fab": "Need help?",
+    "open": "Open setup assistant",
+    "close": "Close assistant",
+    "reset": "Restart",
+    "typing": "Preparing reply…",
+    "welcome": "Hello! I'm the Fluxora assistant. I can guide you through account setup: security (MFA), WhatsApp, sellers, and more.",
+    "steps": {
+      "menu": "Choose what you'd like to configure:",
+      "gettingStarted": "We recommend this order:\n\n1. Enable MFA in Settings\n2. Connect WhatsApp (Meta Embedded Signup)\n3. Add sellers\n4. Review the dashboard\n\nUse the buttons below to jump to each step.",
+      "mfa": "In Settings, enable two-factor authentication (MFA). It's required to protect sensitive data and access admin areas. Scan the QR code with an app like Google Authenticator or Authy.",
+      "whatsapp": "In WhatsApp, use Meta Embedded Signup to connect your business number. Make sure Meta business verification is complete and your domain is authorised in the Fluxora app.",
+      "sellers": "In Sellers, add your sales team. Each seller gets access to assigned conversations. Start with the admin, then invite the rest of the team."
+    },
+    "context": {
+      "mfa": "You're in Settings — configure MFA and company details here.",
+      "whatsapp": "You're in WhatsApp — I can help you connect your number via Meta.",
+      "sellers": "You're in Sellers — I can explain how to add your team."
+    },
+    "options": {
+      "gettingStarted": "Where do I start?",
+      "mfa": "Set up MFA",
+      "whatsapp": "Connect WhatsApp",
+      "sellers": "Add sellers",
+      "back": "Back to menu",
+      "restart": "New conversation"
+    }
+  },
   "gui": {
     "name": "Gui",
     "title": "WaterPro Assistant",

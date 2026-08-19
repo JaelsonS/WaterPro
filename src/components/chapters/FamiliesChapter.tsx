@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Link } from "@/i18n/routing";
 import { media } from "@/lib/media";
+import { buildGeneralWhatsAppUrl } from "@/lib/config";
 import { SafeImage } from "@/components/ui/SafeImage";
 import { Reveal } from "@/components/ui/Reveal";
 import { MagneticButton } from "@/components/ui/MagneticButton";
@@ -116,7 +117,9 @@ export function FamiliesChapter() {
           <div className="mt-8 flex justify-center">
             <MagneticButton
               variant="primary"
-              onClick={() => window.dispatchEvent(new CustomEvent("open-gui"))}
+              onClick={() =>
+                window.open(buildGeneralWhatsAppUrl(locale), "_blank", "noopener,noreferrer")
+              }
             >
               {t("cta")}
             </MagneticButton>

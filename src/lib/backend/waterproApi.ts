@@ -1,3 +1,4 @@
+import { refreshAccessToken } from "@/lib/auth/accessToken";
 import { WaterProApiError, type ApiErrorCode } from "@/lib/backend/apiErrors";
 
 type ApiFetchOptions = {
@@ -12,43 +13,7 @@ function buildBaseUrl() {
   return process.env.NEXT_PUBLIC_BACKEND_URL ?? "http://localhost:3001";
 }
 
-export async function waterproApiFetch<T>(path: string, options: ApiFetchOptions): Promise<T> {
-  const baseUrl = buildBaseUrl();
-  const url = new URL(path, baseUrl);
-
-  if (options.query) {
-    for (const [k, v] of Object.entries(options.query)) {
-      if (v === undefined) continue;
-      url.searchParams.set(k, v);
-    }
-  }
-
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-  };
-
-  if (options.token) {
-    headers.Authorization = `Bearer ${options.token}`;
-  }
-
-  let res: Response;
-  try {
-    res = await fetch(url.toString(), {
-      method: options.method,
-      headers,
-      body: options.body === undefined ? undefined : JSON.stringify(options.body),
-      credentials: "omit",
-      signal: options.signal,
-    });
-  } catch (e: unknown) {
-    const err = e as Error;
-    if (err.name === "AbortError") throw err;
-    throw new WaterProApiError(
-      err.message || "Network request failed",
-      0,
-    );
-  }
-
+async function parseApiResponse<T>(res: Response): Promise<T> {
   if (!res.ok) {
     const status = res.status;
     const contentType = res.headers.get("content-type") ?? "";
@@ -64,4 +29,77 @@ export async function waterproApiFetch<T>(path: string, options: ApiFetchOptions
   }
 
   return (await res.json()) as T;
+}
+
+async function requestWithToken<T>(
+  path: string,
+  options: ApiFetchOptions,
+  token: string | undefined,
+): Promise<T> {
+  const baseUrl = buildBaseUrl();
+  const url = new URL(path, baseUrl);
+
+  if (options.query) {
+    for (const [k, v] of Object.entries(options.query)) {
+      if (v === undefined) continue;
+      url.searchParams.set(k, v);
+    }
+  }
+
+  const headers: Record<string, string> = {
+    "Content-Type": "application/json",
+  };
+
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
+  }
+
+  let res: Response;
+  try {
+    res = await fetch(url.toString(), {
+      method: options.method,
+      headers,
+      body: options.body === undefined ? undefined : JSON.stringify(options.body),
+      credentials: "omit",
+      signal: options.signal,
+    });
+  } catch (e: unknown) {
+    const err = e as Error;
+    if (err.name === "AbortError") throw err;
+    throw new WaterProApiError(err.message || "Network request failed", 0);
+  }
+
+  return parseApiResponse<T>(res);
+}
+
+export async function waterproApiFetch<T>(path: string, options: ApiFetchOptions): Promise<T> {
+  const initialToken = options.token;
+  try {
+    return await requestWithToken<T>(path, options, initialToken);
+  } catch (error) {
+    if (!(error instanceof WaterProApiError) || error.status !== 401 || !initialToken) {
+      throw error;
+    }
+
+    const refreshedToken = await refreshAccessToken();
+    if (!refreshedToken || refreshedToken === initialToken) {
+      if (typeof window !== "undefined") {
+        window.dispatchEvent(new CustomEvent("waterpro:auth-expired"));
+      }
+      throw error;
+    }
+
+    try {
+      return await requestWithToken<T>(path, options, refreshedToken);
+    } catch (retryError) {
+      if (
+        retryError instanceof WaterProApiError &&
+        retryError.status === 401 &&
+        typeof window !== "undefined"
+      ) {
+        window.dispatchEvent(new CustomEvent("waterpro:auth-expired"));
+      }
+      throw retryError;
+    }
+  }
 }

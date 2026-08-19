@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { waterproApiFetch } from "@/lib/backend/waterproApi";
+import { getAccessToken } from "@/lib/auth/accessToken";
 import { mapApiErrorToUserMessage, WaterProApiError } from "@/lib/backend/apiErrors";
 import { useConnectionPolling } from "@/hooks/useConnectionPolling";
 import type {
@@ -87,22 +88,23 @@ export function useWhatsAppDashboard(sessionToken: string | null) {
   );
 
   const refresh = useCallback(async () => {
-    if (!sessionToken) return;
+    const token = sessionToken ? await getAccessToken() : null;
+    if (!token) return;
     setLoading(true);
     setLoadError(null);
     try {
       const [connectionsRes, numbersRes, sellersRes] = await Promise.all([
         waterproApiFetch<{ connections: Record<string, unknown>[] }>("/api/v1/whatsapp/connections", {
           method: "GET",
-          token: sessionToken,
+          token,
         }),
         waterproApiFetch<{ whatsappNumbers: WhatsAppNumberRecord[] }>("/api/v1/whatsapp/numbers", {
           method: "GET",
-          token: sessionToken,
+          token,
         }),
         waterproApiFetch<{ sellers: SellerRecord[] }>("/api/v1/sellers", {
           method: "GET",
-          token: sessionToken,
+          token,
         }),
       ]);
 

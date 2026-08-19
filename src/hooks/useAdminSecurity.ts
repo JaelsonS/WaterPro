@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getSupabaseClient } from "@/lib/supabase/getSupabaseClient";
 import { waterproApiFetch } from "@/lib/backend/waterproApi";
+import { getAccessToken } from "@/lib/auth/accessToken";
 import {
   clearLocalStepUp,
   markStepUpVerifiedLocally,
@@ -31,7 +32,8 @@ export function useAdminSecurity(sessionToken: string | null) {
   );
 
   const refresh = useCallback(async () => {
-    if (!sessionToken) {
+    const token = sessionToken ? await getAccessToken() : null;
+    if (!token) {
       setStatus(null);
       return;
     }
@@ -40,7 +42,7 @@ export function useAdminSecurity(sessionToken: string | null) {
     try {
       const res = await waterproApiFetch<SecurityStatusResponse>("/api/v1/auth/security-status", {
         method: "GET",
-        token: sessionToken,
+        token,
       });
       setStatus(res);
     } catch (e: unknown) {
@@ -52,8 +54,9 @@ export function useAdminSecurity(sessionToken: string | null) {
   }, [sessionToken]);
 
   useEffect(() => {
-    void refresh();
-  }, [refresh]);
+    if (!sessionToken) return;
+    void refresh().catch(() => undefined);
+  }, [sessionToken, refresh]);
 
   const startMfaSetup = useCallback(async () => {
     if (!supabase) throw new Error("Supabase não configurado");
