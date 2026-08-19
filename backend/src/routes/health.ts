@@ -36,6 +36,12 @@ healthRouter.get("/health", (_req, res) => {
 
   if (appEnv === "staging") {
     body.supabase = supabaseConfigStatus(env);
+    const verifyToken = env.WHATSAPP_VERIFY_TOKEN?.trim();
+    const appSecret = env.WHATSAPP_APP_SECRET?.trim();
+    body.whatsappWebhook = {
+      verifyTokenConfigured: Boolean(verifyToken && !verifyToken.startsWith("YOUR_")),
+      appSecretConfigured: Boolean(appSecret && !appSecret.startsWith("YOUR_")),
+    };
   }
 
   res.status(200).json(body);

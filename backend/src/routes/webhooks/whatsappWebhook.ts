@@ -9,32 +9,54 @@ import { MockAIProvider } from "../../ai/mockAIProvider";
 import { MockWhatsAppProvider } from "../../whatsapp/mockWhatsAppProvider";
 import { createSupabaseAdminClient } from "../../config/supabase";
 import { verifyMetaWebhookSignature } from "../../whatsapp/verifyMetaWebhookSignature";
-import { requireWhatsAppWebhookEnv } from "../../config/env";
+import { requireWhatsAppVerifyTokenEnv, requireWhatsAppWebhookEnv } from "../../config/env";
 import { HttpError } from "../../errors/httpError";
+import type { Request } from "express";
 
 const router = Router();
 
+function readMetaHubVerificationQuery(query: Request["query"]) {
+  const nestedHub = query.hub;
+  if (nestedHub && typeof nestedHub === "object" && !Array.isArray(nestedHub)) {
+    const hub = nestedHub as Record<string, unknown>;
+    return {
+      mode: String(hub.mode ?? ""),
+      verifyToken: String(hub.verify_token ?? ""),
+      challenge: String(hub.challenge ?? ""),
+    };
+  }
+
+  return {
+    mode: String(query["hub.mode"] ?? ""),
+    verifyToken: String(query["hub.verify_token"] ?? ""),
+    challenge: String(query["hub.challenge"] ?? ""),
+  };
+}
+
 router.get("/webhooks/whatsapp", async (req, res, next) => {
   try {
-    const env = requireWhatsAppWebhookEnv();
-    const schema = z.object({
-      "hub.mode": z.string().optional(),
-      "hub.verify_token": z.string().optional(),
-      "hub.challenge": z.string(),
-    });
+    const env = requireWhatsAppVerifyTokenEnv();
+    const { mode, verifyToken, challenge } = readMetaHubVerificationQuery(req.query);
 
-    const parsed = schema.parse(req.query);
-    if (parsed["hub.mode"] !== "subscribe") {
+    if (mode !== "subscribe") {
       return res.sendStatus(403);
     }
 
-    if (parsed["hub.verify_token"] !== env.WHATSAPP_VERIFY_TOKEN) {
+    if (!challenge) {
+      return next(new HttpError({ statusCode: 400, code: "BAD_REQUEST", message: "Missing hub.challenge" }));
+    }
+
+    if (verifyToken !== env.WHATSAPP_VERIFY_TOKEN) {
       return res.sendStatus(403);
     }
 
     // Meta expects the challenge raw value (not JSON).
-    return res.status(200).send(parsed["hub.challenge"]);
+    return res.status(200).send(challenge);
   } catch (err) {
+    if (err instanceof Error && err.message.startsWith("Missing required environment variables")) {
+      return res.sendStatus(503);
+    }
+
     return next(new HttpError({ statusCode: 400, code: "BAD_REQUEST", message: "Invalid webhook verification request" }));
   }
 });

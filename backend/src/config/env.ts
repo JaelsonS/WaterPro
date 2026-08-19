@@ -72,11 +72,29 @@ export function requireSupabaseAnonEnv() {
   };
 }
 
+function isConfiguredSecret(value: string | undefined): value is string {
+  if (!value) return false;
+  const normalized = value.trim();
+  if (!normalized) return false;
+  return !normalized.startsWith("YOUR_");
+}
+
+export function requireWhatsAppVerifyTokenEnv() {
+  const env = getEnv();
+  if (!isConfiguredSecret(env.WHATSAPP_VERIFY_TOKEN)) {
+    throw new Error("Missing required environment variables: WHATSAPP_VERIFY_TOKEN");
+  }
+
+  return env as Env & {
+    WHATSAPP_VERIFY_TOKEN: string;
+  };
+}
+
 export function requireWhatsAppWebhookEnv() {
   const env = getEnv();
   const missing: string[] = [];
-  if (!env.WHATSAPP_VERIFY_TOKEN) missing.push("WHATSAPP_VERIFY_TOKEN");
-  if (!env.WHATSAPP_APP_SECRET) missing.push("WHATSAPP_APP_SECRET");
+  if (!isConfiguredSecret(env.WHATSAPP_VERIFY_TOKEN)) missing.push("WHATSAPP_VERIFY_TOKEN");
+  if (!isConfiguredSecret(env.WHATSAPP_APP_SECRET)) missing.push("WHATSAPP_APP_SECRET");
 
   if (missing.length > 0) {
     throw new Error(`Missing required environment variables: ${missing.join(", ")}`);
