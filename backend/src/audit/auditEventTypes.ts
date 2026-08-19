@@ -1,0 +1,43 @@
+export const MFA_AUDIT_EVENTS = {
+  SETUP_STARTED: "MFA_SETUP_STARTED",
+  ENABLED: "MFA_ENABLED",
+  VERIFICATION_SUCCESS: "MFA_VERIFICATION_SUCCESS",
+  VERIFICATION_FAILED: "MFA_VERIFICATION_FAILED",
+  REMOVED: "MFA_REMOVED",
+  STEP_UP_REQUIRED: "MFA_STEP_UP_REQUIRED",
+  STEP_UP_SUCCESS: "MFA_STEP_UP_SUCCESS",
+  STEP_UP_FAILED: "MFA_STEP_UP_FAILED",
+} as const;
+
+export type MfaAuditEventType = (typeof MFA_AUDIT_EVENTS)[keyof typeof MFA_AUDIT_EVENTS];
+
+export const WHATSAPP_AUDIT_EVENTS = {
+  CONNECT_STARTED: "WHATSAPP_CONNECT_STARTED",
+  CONNECT_COMPLETED: "WHATSAPP_CONNECT_COMPLETED",
+  CONNECT_FAILED: "WHATSAPP_CONNECT_FAILED",
+  DISCONNECTED: "WHATSAPP_DISCONNECTED",
+  SYNC_STARTED: "WHATSAPP_SYNC_STARTED",
+  SYNC_COMPLETED: "WHATSAPP_SYNC_COMPLETED",
+  SYNC_FAILED: "WHATSAPP_SYNC_FAILED",
+  REAUTH_REQUIRED: "WHATSAPP_REAUTH_REQUIRED",
+  NUMBER_TESTED: "WHATSAPP_NUMBER_TESTED",
+  NUMBER_ASSIGNED: "WHATSAPP_NUMBER_ASSIGNED",
+  CONNECTION_RECONNECTED: "WHATSAPP_CONNECTION_RECONNECTED",
+} as const;
+
+export type WhatsAppAuditEventType = (typeof WHATSAPP_AUDIT_EVENTS)[keyof typeof WHATSAPP_AUDIT_EVENTS];
+
+export type AuditResourceType =
+  | "whatsapp_connection"
+  | "whatsapp_number"
+  | "whatsapp_credential"
+  | "admin_security";
+
+export type AuditEventInput = {
+  companyId: string;
+  actorUserId?: string | null;
+  eventType: string;
+  resourceType: AuditResourceType;
+  resourceId?: string | null;
+  metadata?: Record<string, unknown>;
+};

@@ -7,8 +7,7 @@ import { routing } from "@/i18n/routing";
 import "../globals.css";
 import { SmoothScrollProvider } from "@/components/providers/SmoothScrollProvider";
 import { ClientEffects } from "@/components/providers/ClientEffects";
-import { Header } from "@/components/layout/Header";
-import { Footer } from "@/components/layout/Footer";
+import { SiteChrome } from "@/components/layout/SiteChrome";
 import {
   getOrganizationSchema,
   getLocalBusinessSchema,
@@ -114,11 +113,7 @@ export default async function LocaleLayout({
             ))}
 
             <ClientEffects />
-            <Header />
-
-            <main id="main-content">{children}</main>
-
-            <Footer />
+            <SiteChrome>{children}</SiteChrome>
           </SmoothScrollProvider>
         </NextIntlClientProvider>
       </body>

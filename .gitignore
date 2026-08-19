@@ -1,5 +1,6 @@
 # dependencies
 /node_modules
+/backend/node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -10,6 +11,7 @@
 
 # testing
 /coverage
+/test-results
 
 # next.js
 /.next/
@@ -17,6 +19,7 @@
 
 # production
 /build
+/backend/dist
 
 # misc
 .DS_Store
@@ -30,6 +33,11 @@ yarn-error.log*
 
 # env files
 .env*
+!.env.example
+!**/.env*.example
+.env.production
+.env.staging
+.env.local
 
 # vercel
 .vercel
