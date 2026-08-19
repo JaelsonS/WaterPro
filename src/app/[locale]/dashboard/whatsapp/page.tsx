@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import { ConnectionStatusCard } from "@/components/dashboard/ConnectionStatusCard";
 import {
@@ -152,9 +153,9 @@ export default function WhatsAppDashboardPage() {
         {security.enrollmentRequired ? (
           <div className="rounded-2xl border border-amber-200 bg-amber-50 p-4 text-sm text-amber-950">
             Configure autenticação de dois fatores em{" "}
-            <a href="/dashboard/definicoes" className="font-medium underline">
+            <Link href="/dashboard/definicoes" className="font-medium underline">
               Definições → Segurança
-            </a>{" "}
+            </Link>{" "}
             para conectar ou alterar integrações WhatsApp.
           </div>
         ) : null}
