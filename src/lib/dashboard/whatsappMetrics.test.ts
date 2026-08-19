@@ -34,7 +34,7 @@ const sellers: SellerRecord[] = [{ id: "s1", name: "João", active: true }];
 describe("whatsappMetrics", () => {
   it("calcula métricas reais a partir dos números", () => {
     const metrics = computeWhatsAppMetrics(numbers);
-    expect(metrics.totalNumbers).toBe(3);
+    expect(metrics.totalNumbers).toBe(2);
     expect(metrics.activeNumbers).toBe(2);
     expect(metrics.withoutSeller).toBe(1);
     expect(metrics.problemNumbers).toBe(1);

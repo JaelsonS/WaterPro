@@ -31,7 +31,7 @@ export function MetaEmbeddedSignupMock({ onComplete }: Props) {
       onComplete({
         embeddedCode: "mock-embedded-code",
         wabaId: "mock-waba-id",
-        phoneNumberId: `pn-${Math.random().toString(16).slice(2, 8)}`,
+        phoneNumberId: "pn-mock-fluxora-staging",
       });
     }, 900);
 

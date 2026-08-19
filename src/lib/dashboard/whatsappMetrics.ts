@@ -19,7 +19,7 @@ export function computeWhatsAppMetrics(numbers: WhatsAppNumberRecord[]): WhatsAp
   const problem = active.filter((n) => !n.verified || !n.seller_id);
 
   return {
-    totalNumbers: numbers.length,
+    totalNumbers: active.length,
     activeNumbers: active.length,
     verifiedNumbers: verified.length,
     withSeller: withSeller.length,

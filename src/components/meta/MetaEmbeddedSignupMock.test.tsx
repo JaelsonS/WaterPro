@@ -24,7 +24,7 @@ describe("MetaEmbeddedSignupMock", () => {
     expect(typeof payload.embeddedCode).toBe("string");
     expect(payload.embeddedCode).toBe("mock-embedded-code");
     expect(typeof payload.wabaId).toBe("string");
-    expect(typeof payload.phoneNumberId).toBe("string");
+    expect(payload.phoneNumberId).toBe("pn-mock-fluxora-staging");
   });
 });
 
