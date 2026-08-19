@@ -14,12 +14,12 @@ export async function authUserMiddleware(req: Request, _res: Response, next: Nex
     const supabase = createSupabaseUserClient(token);
     const { data: userData, error: userError } = await supabase.auth.getUser(token);
     if (userError || !userData.user) {
-      return next(new HttpError({ statusCode: 401, code: "UNAUTHORIZED", message: "Invalid token" }));
+      return next(new HttpError({ statusCode: 401, code: "UNAUTHORIZED", message: "Email ou senha inválidos" }));
     }
 
     req.authUser = { userId: userData.user.id, email: userData.user.email ?? null };
     return next();
   } catch {
-    return next(new HttpError({ statusCode: 401, code: "UNAUTHORIZED", message: "Unauthorized" }));
+    return next(new HttpError({ statusCode: 401, code: "UNAUTHORIZED", message: "Email ou senha inválidos" }));
   }
 }
