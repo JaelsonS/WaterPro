@@ -188,6 +188,7 @@ export function DashboardFluxoraAssistant() {
     ];
   };
 
+  return (
     <>
       <button
         type="button"
