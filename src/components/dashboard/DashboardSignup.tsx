@@ -11,7 +11,6 @@ type DashboardSignupProps = {
   confirmPassword: string;
   loading: boolean;
   error: string | null;
-  info: string | null;
   onCompanyNameChange: (value: string) => void;
   onEmailChange: (value: string) => void;
   onPasswordChange: (value: string) => void;
@@ -26,7 +25,6 @@ export function DashboardSignup({
   confirmPassword,
   loading,
   error,
-  info,
   onCompanyNameChange,
   onEmailChange,
   onPasswordChange,
@@ -103,14 +101,8 @@ export function DashboardSignup({
           </div>
 
           {error ? (
-            <p className="text-sm text-red-600" role="alert">
+            <p className="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700" role="alert">
               {error}
-            </p>
-          ) : null}
-
-          {info ? (
-            <p className="text-sm text-azure" role="status">
-              {info}
             </p>
           ) : null}
 
@@ -121,7 +113,7 @@ export function DashboardSignup({
 
         <p className="mt-6 text-center text-sm text-ink-muted">
           Já tem conta?{" "}
-          <Link href="/dashboard" className="font-medium text-azure hover:underline">
+          <Link href="/dashboard?entrar=1" className="font-medium text-azure hover:underline">
             Entrar
           </Link>
         </p>

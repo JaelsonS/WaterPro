@@ -2,6 +2,8 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { getSupabaseClient } from "@/lib/supabase/getSupabaseClient";
+import { readPendingRegistration, clearPendingRegistration } from "@/lib/auth/pendingRegistration";
+import { provisionCompanyIfNeeded } from "@/lib/auth/provisionCompany";
 
 export type DashboardAuthState = {
   sessionToken: string | null;
@@ -48,11 +50,43 @@ export function useDashboardAuth(): DashboardAuthState {
   const signIn = useCallback(
     async (email: string, password: string) => {
       if (!supabase) throw new Error("Supabase não configurado");
+      const normalizedEmail = email.trim().toLowerCase();
+
       setAuthLoading(true);
       setAuthError(null);
       try {
-        const { error } = await supabase.auth.signInWithPassword({ email, password });
+        await supabase.auth.signOut({ scope: "local" });
+
+        const { data, error } = await supabase.auth.signInWithPassword({
+          email: normalizedEmail,
+          password,
+        });
         if (error) throw error;
+
+        const signedInEmail = data.user?.email?.trim().toLowerCase();
+        if (!signedInEmail || signedInEmail !== normalizedEmail) {
+          await supabase.auth.signOut({ scope: "local" });
+          throw new Error("Não foi possível validar a sessão. Tente novamente.");
+        }
+
+        const token = data.session?.access_token;
+        if (!token) {
+          throw new Error("Sessão inválida. Confirme o email antes de entrar.");
+        }
+
+        const pending = readPendingRegistration(normalizedEmail);
+        if (pending) {
+          await provisionCompanyIfNeeded(token, pending.companyName);
+          clearPendingRegistration();
+        } else {
+          const companyName =
+            typeof data.user.user_metadata?.company_name === "string"
+              ? data.user.user_metadata.company_name
+              : null;
+          if (companyName) {
+            await provisionCompanyIfNeeded(token, companyName);
+          }
+        }
       } finally {
         setAuthLoading(false);
       }
@@ -62,8 +96,10 @@ export function useDashboardAuth(): DashboardAuthState {
 
   const signOut = useCallback(async () => {
     if (!supabase) return;
-    await supabase.auth.signOut();
+    await supabase.auth.signOut({ scope: "local" });
     setCanManage(null);
+    setSessionToken(null);
+    setUserEmail(null);
   }, [supabase]);
 
   return {

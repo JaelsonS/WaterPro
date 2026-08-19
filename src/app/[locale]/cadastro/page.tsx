@@ -3,14 +3,14 @@
 import { useState, type FormEvent } from "react";
 import { useRouter } from "@/i18n/routing";
 import { getSupabaseClient } from "@/lib/supabase/getSupabaseClient";
-import { waterproApiFetch } from "@/lib/backend/waterproApi";
 import { DashboardSignup } from "@/components/dashboard/DashboardSignup";
+import { savePendingRegistration, clearPendingRegistration } from "@/lib/auth/pendingRegistration";
+import { provisionCompanyIfNeeded } from "@/lib/auth/provisionCompany";
 
-type RegisterResponse = {
-  companyId: string;
-  slug: string | null;
-  alreadyRegistered: boolean;
-};
+function buildEmailRedirectUrl() {
+  if (typeof window === "undefined") return undefined;
+  return `${window.location.origin}/auth/confirmar`;
+}
 
 export default function CadastroPage() {
   const router = useRouter();
@@ -21,12 +21,10 @@ export default function CadastroPage() {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [info, setInfo] = useState<string | null>(null);
 
   async function onSubmit(e: FormEvent) {
     e.preventDefault();
     setError(null);
-    setInfo(null);
 
     if (!supabase) {
       setError("Supabase não configurado.");
@@ -38,24 +36,41 @@ export default function CadastroPage() {
       return;
     }
 
+    const normalizedEmail = email.trim().toLowerCase();
+
     setLoading(true);
     try {
-      const { data, error: signUpError } = await supabase.auth.signUp({ email, password });
+      // Remove sessão de teste/conta anterior para evitar login silencioso na conta errada.
+      await supabase.auth.signOut({ scope: "local" });
+
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email: normalizedEmail,
+        password,
+        options: {
+          emailRedirectTo: buildEmailRedirectUrl(),
+          data: { company_name: companyName.trim() },
+        },
+      });
+
       if (signUpError) throw signUpError;
 
+      savePendingRegistration({
+        email: normalizedEmail,
+        companyName: companyName.trim(),
+        createdAt: Date.now(),
+      });
+
       const session = data.session;
-      if (!session?.access_token) {
-        setInfo("Conta criada. Confirme o email enviado e depois entre em /dashboard.");
+      if (session?.access_token) {
+        await provisionCompanyIfNeeded(session.access_token, companyName.trim());
+        clearPendingRegistration();
+        await supabase.auth.signOut({ scope: "local" });
+        router.replace(`/cadastro/verificar-email?email=${encodeURIComponent(normalizedEmail)}`);
         return;
       }
 
-      await waterproApiFetch<RegisterResponse>("/api/v1/auth/register", {
-        method: "POST",
-        token: session.access_token,
-        body: { companyName },
-      });
-
-      router.replace("/dashboard");
+      await supabase.auth.signOut({ scope: "local" });
+      router.replace(`/cadastro/verificar-email?email=${encodeURIComponent(normalizedEmail)}`);
     } catch (err: unknown) {
       const message = err instanceof Error ? err.message : "Não foi possível criar a conta.";
       setError(message);
@@ -80,7 +95,6 @@ export default function CadastroPage() {
       confirmPassword={confirmPassword}
       loading={loading}
       error={error}
-      info={info}
       onCompanyNameChange={setCompanyName}
       onEmailChange={setEmail}
       onPasswordChange={setPassword}

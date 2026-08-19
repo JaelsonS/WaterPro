@@ -1,7 +1,7 @@
 import { Suspense } from "react";
-import { DashboardLayoutClient } from "@/components/dashboard/DashboardLayoutClient";
+import { VerificarEmailClient } from "./VerificarEmailClient";
 
-export default function DashboardLayout({ children }: { children: React.ReactNode }) {
+export default function VerificarEmailPage() {
   return (
     <Suspense
       fallback={
@@ -10,7 +10,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
         </div>
       }
     >
-      <DashboardLayoutClient>{children}</DashboardLayoutClient>
+      <VerificarEmailClient />
     </Suspense>
   );
 }

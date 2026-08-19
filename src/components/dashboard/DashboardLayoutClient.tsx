@@ -1,6 +1,7 @@
 "use client";
 
-import { usePathname } from "@/i18n/routing";
+import { usePathname, useRouter } from "@/i18n/routing";
+import { useSearchParams } from "next/navigation";
 import { DashboardAuthProvider, useDashboardAuthContext } from "./DashboardAuthProvider";
 import { AdminSecurityProvider } from "./AdminSecurityProvider";
 import { MfaEnrollmentGate } from "./MfaEnrollmentGate";
@@ -42,8 +43,18 @@ function getPageMeta(pathname: string | null): { title: string; description?: st
 function DashboardRouteGuard({ children }: { children: ReactNode }) {
   const supabase = getSupabaseClient();
   const auth = useDashboardAuthContext();
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const forceLogin = searchParams.get("entrar") === "1";
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [clearingSession, setClearingSession] = useState(forceLogin);
+
+  useEffect(() => {
+    if (!forceLogin) return;
+    setClearingSession(true);
+    void auth.signOut().finally(() => setClearingSession(false));
+  }, [forceLogin, auth]);
 
   if (!supabase) {
     return (
@@ -53,7 +64,7 @@ function DashboardRouteGuard({ children }: { children: ReactNode }) {
     );
   }
 
-  if (!auth.authReady) {
+  if (!auth.authReady || clearingSession) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-ice text-sm text-ink-muted">
         A carregar sessão…
@@ -66,6 +77,7 @@ function DashboardRouteGuard({ children }: { children: ReactNode }) {
       e.preventDefault();
       try {
         await auth.signIn(email, password);
+        router.replace("/dashboard");
       } catch (err: unknown) {
         const message = err instanceof Error ? err.message : "Falha no login";
         auth.setAuthError(message);
