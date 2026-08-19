@@ -13,38 +13,39 @@ import { waterproApiFetch } from "@/lib/backend/waterproApi";
 import type { SellerRecord } from "@/lib/dashboard/types";
 
 function DashboardHomeContent() {
-  const auth = useDashboardAuthContext();
+  const { sessionToken, setCanManage, setAuthError } = useDashboardAuthContext();
   const toast = useToast();
-  const whatsapp = useWhatsAppDashboard(auth.sessionToken);
+  const whatsapp = useWhatsAppDashboard(sessionToken);
+  const { refresh: refreshWhatsApp } = whatsapp;
   const [sellersCount, setSellersCount] = useState<number | null>(null);
   const [confirmDisconnect, setConfirmDisconnect] = useState(false);
 
   useEffect(() => {
-    if (!auth.sessionToken) return;
+    if (!sessionToken) return;
     void (async () => {
       try {
-        await whatsapp.refresh();
-        auth.setCanManage(true);
+        await refreshWhatsApp();
+        setCanManage(true);
       } catch (e: unknown) {
         const err = e as Error & { status?: number };
         if (err.status === 403 || err.status === 401) {
-          auth.setCanManage(false);
+          setCanManage(false);
           return;
         }
-        auth.setAuthError(err.message ?? "Falha ao carregar painel");
+        setAuthError(err.message ?? "Falha ao carregar painel");
       }
     })();
-  }, [auth.sessionToken]);
+  }, [sessionToken, refreshWhatsApp, setCanManage, setAuthError]);
 
   useEffect(() => {
-    if (!auth.sessionToken) return;
+    if (!sessionToken) return;
     void waterproApiFetch<{ sellers: SellerRecord[] }>("/api/v1/sellers", {
       method: "GET",
-      token: auth.sessionToken,
+      token: sessionToken,
     })
       .then((res) => setSellersCount(res.sellers?.length ?? 0))
       .catch(() => setSellersCount(null));
-  }, [auth.sessionToken]);
+  }, [sessionToken]);
 
   async function handleSync() {
     try {

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, type FormEvent } from "react";
+import Image from "next/image";
 import { MagneticButton } from "@/components/ui/MagneticButton";
 
 type MfaSetupPanelProps = {
@@ -16,9 +17,12 @@ type MfaSetupPanelProps = {
 function MfaQrCode({ qrCode }: { qrCode: string }) {
   if (qrCode.startsWith("data:")) {
     return (
-      <img
+      <Image
         src={qrCode}
         alt="Código QR para autenticação de dois fatores"
+        width={192}
+        height={192}
+        unoptimized
         className="mx-auto h-48 w-48"
       />
     );

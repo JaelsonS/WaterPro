@@ -10,7 +10,7 @@ import { waterproApiFetch } from "@/lib/backend/waterproApi";
 import type { CompanyRecord } from "@/lib/dashboard/types";
 
 export default function DefinicoesPage() {
-  const auth = useDashboardAuthContext();
+  const { sessionToken, setCanManage, userEmail, signOut } = useDashboardAuthContext();
   const security = useAdminSecurityContext();
   const [company, setCompany] = useState<CompanyRecord | null>(null);
   const [loading, setLoading] = useState(true);
@@ -18,21 +18,21 @@ export default function DefinicoesPage() {
   const [mfaError, setMfaError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!auth.sessionToken) return;
+    if (!sessionToken) return;
     void (async () => {
       setLoading(true);
       setError(null);
       try {
         const res = await waterproApiFetch<{ company: CompanyRecord }>("/api/v1/company", {
           method: "GET",
-          token: auth.sessionToken!,
+          token: sessionToken,
         });
         setCompany(res.company);
-        auth.setCanManage(true);
+        setCanManage(true);
       } catch (e: unknown) {
         const err = e as Error & { status?: number };
         if (err.status === 403 || err.status === 401) {
-          auth.setCanManage(false);
+          setCanManage(false);
           return;
         }
         setError(err.message ?? "Não foi possível carregar as definições.");
@@ -40,7 +40,7 @@ export default function DefinicoesPage() {
         setLoading(false);
       }
     })();
-  }, [auth.sessionToken]);
+  }, [sessionToken, setCanManage]);
 
   return (
     <DashboardPermissionGate>
@@ -116,7 +116,7 @@ export default function DefinicoesPage() {
           <dl className="mt-4 space-y-3 text-sm">
             <div>
               <dt className="text-ink-muted">Email</dt>
-              <dd className="font-medium text-ink">{auth.userEmail ?? "—"}</dd>
+              <dd className="font-medium text-ink">{userEmail ?? "—"}</dd>
             </div>
             <div>
               <dt className="text-ink-muted">Nível de segurança</dt>
@@ -126,7 +126,7 @@ export default function DefinicoesPage() {
           <MagneticButton
             variant="secondary"
             className="mt-4 !px-4 !py-2"
-            onClick={() => void auth.signOut()}
+            onClick={() => void signOut()}
           >
             Terminar sessão
           </MagneticButton>

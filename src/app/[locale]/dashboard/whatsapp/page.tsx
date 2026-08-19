@@ -24,10 +24,11 @@ import {
 type NumbersView = "list" | "bySeller";
 
 export default function WhatsAppDashboardPage() {
-  const auth = useDashboardAuthContext();
+  const { sessionToken, setCanManage } = useDashboardAuthContext();
   const security = useAdminSecurityContext();
   const toast = useToast();
-  const whatsapp = useWhatsAppDashboard(auth.sessionToken);
+  const whatsapp = useWhatsAppDashboard(sessionToken);
+  const { refresh: refreshWhatsApp } = whatsapp;
   const [confirmDisconnect, setConfirmDisconnect] = useState(false);
   const [numbersView, setNumbersView] = useState<NumbersView>("list");
   const [sellerFilter, setSellerFilter] = useState<string>("all");
@@ -43,15 +44,15 @@ export default function WhatsAppDashboardPage() {
   );
 
   useEffect(() => {
-    if (!auth.sessionToken) return;
-    void whatsapp.refresh().then(
-      () => auth.setCanManage(true),
+    if (!sessionToken) return;
+    void refreshWhatsApp().then(
+      () => setCanManage(true),
       (e: unknown) => {
         const err = e as Error & { status?: number };
-        if (err.status === 403 || err.status === 401) auth.setCanManage(false);
+        if (err.status === 403 || err.status === 401) setCanManage(false);
       },
     );
-  }, [auth.sessionToken]);
+  }, [sessionToken, refreshWhatsApp, setCanManage]);
 
   const wizardStep = useMemo(
     () =>

@@ -25,7 +25,7 @@ const emptyForm: SellerFormState = {
 };
 
 export default function VendedoresPage() {
-  const auth = useDashboardAuthContext();
+  const { sessionToken, setCanManage } = useDashboardAuthContext();
   const toast = useToast();
   const [sellers, setSellers] = useState<SellerRecord[]>([]);
   const [loading, setLoading] = useState(true);
@@ -37,27 +37,27 @@ export default function VendedoresPage() {
   const [saving, setSaving] = useState(false);
 
   const loadSellers = useCallback(async () => {
-    if (!auth.sessionToken) return;
+    if (!sessionToken) return;
     setLoading(true);
     setError(null);
     try {
       const res = await waterproApiFetch<{ sellers: SellerRecord[] }>("/api/v1/sellers", {
         method: "GET",
-        token: auth.sessionToken,
+        token: sessionToken,
       });
       setSellers(res.sellers ?? []);
-      auth.setCanManage(true);
+      setCanManage(true);
     } catch (e: unknown) {
       const err = e as Error & { status?: number };
       if (err.status === 403 || err.status === 401) {
-        auth.setCanManage(false);
+        setCanManage(false);
         return;
       }
       setError(err.message ?? "Não foi possível carregar os vendedores.");
     } finally {
       setLoading(false);
     }
-  }, [auth.sessionToken]);
+  }, [sessionToken, setCanManage]);
 
   useEffect(() => {
     void loadSellers();
@@ -93,7 +93,7 @@ export default function VendedoresPage() {
   }
 
   async function saveSeller() {
-    if (!auth.sessionToken || !form.name.trim()) return;
+    if (!sessionToken || !form.name.trim()) return;
     setSaving(true);
     try {
       const body = {
@@ -107,14 +107,14 @@ export default function VendedoresPage() {
       if (editingId) {
         await waterproApiFetch(`/api/v1/sellers/${editingId}`, {
           method: "PATCH",
-          token: auth.sessionToken,
+          token: sessionToken,
           body,
         });
         toast.push("Vendedor atualizado.", "success");
       } else {
         await waterproApiFetch("/api/v1/sellers", {
           method: "POST",
-          token: auth.sessionToken,
+          token: sessionToken,
           body,
         });
         toast.push("Vendedor adicionado.", "success");
@@ -130,11 +130,11 @@ export default function VendedoresPage() {
   }
 
   async function toggleActive(seller: SellerRecord) {
-    if (!auth.sessionToken) return;
+    if (!sessionToken) return;
     try {
       await waterproApiFetch(`/api/v1/sellers/${seller.id}`, {
         method: "PATCH",
-        token: auth.sessionToken,
+        token: sessionToken,
         body: { active: !seller.active },
       });
       toast.push(seller.active ? "Vendedor desativado." : "Vendedor ativado.", "success");
