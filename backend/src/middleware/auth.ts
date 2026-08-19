@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import { HttpError } from "../errors/httpError";
 import { createSupabaseUserClient } from "../config/supabase";
+import { getEnv } from "../config/env";
 import { getBearerToken } from "../utils/auth";
 
 export async function authMiddleware(req: Request, res: Response, next: NextFunction) {
@@ -51,9 +52,12 @@ export async function authMiddleware(req: Request, res: Response, next: NextFunc
 
     req.user = { userId, companyId: membership.company_id, role: membership.role };
     return next();
-  } catch {
-    // Avoid leaking internal error details.
-    return next(new HttpError({ statusCode: 401, code: "UNAUTHORIZED", message: "Unauthorized" }));
+  } catch (err) {
+    const appEnv = getEnv().APP_ENV ?? getEnv().NODE_ENV;
+    const detail = err instanceof Error ? err.message : "Unauthorized";
+    // Staging: surface config errors to speed up deploy debugging.
+    const message = appEnv === "staging" ? detail : "Unauthorized";
+    return next(new HttpError({ statusCode: 401, code: "UNAUTHORIZED", message }));
   }
 }
 
