@@ -61,6 +61,7 @@ export default function DefinicoesPage() {
             <MfaSetupPanel
               enrolled={security.status?.mfaEnrolled}
               qrCode={security.enrollState?.qrCode}
+              secret={security.enrollState?.secret}
               loading={security.loading}
               error={mfaError}
               onStart={async () => {

@@ -5,6 +5,7 @@ import { MagneticButton } from "@/components/ui/MagneticButton";
 
 type MfaSetupPanelProps = {
   qrCode?: string | null;
+  secret?: string | null;
   loading?: boolean;
   error?: string | null;
   onStart: () => Promise<void>;
@@ -12,8 +13,29 @@ type MfaSetupPanelProps = {
   enrolled?: boolean;
 };
 
+function MfaQrCode({ qrCode }: { qrCode: string }) {
+  if (qrCode.startsWith("data:")) {
+    return (
+      <img
+        src={qrCode}
+        alt="Código QR para autenticação de dois fatores"
+        className="mx-auto h-48 w-48"
+      />
+    );
+  }
+
+  return (
+    <div
+      className="mx-auto flex max-w-xs items-center justify-center rounded-xl border border-slate-line bg-white p-4"
+      // eslint-disable-next-line react/no-danger
+      dangerouslySetInnerHTML={{ __html: qrCode }}
+    />
+  );
+}
+
 export function MfaSetupPanel({
   qrCode,
+  secret,
   loading,
   error,
   onStart,
@@ -70,11 +92,12 @@ export function MfaSetupPanel({
           <p className="text-sm text-ink-muted">
             Escaneie o código QR com a sua app autenticadora e introduza o código gerado.
           </p>
-          <div
-            className="mx-auto flex max-w-xs items-center justify-center rounded-xl border border-slate-line bg-white p-4"
-            // eslint-disable-next-line react/no-danger
-            dangerouslySetInnerHTML={{ __html: qrCode }}
-          />
+          {qrCode ? <MfaQrCode qrCode={qrCode} /> : null}
+          {secret ? (
+            <p className="text-center text-xs text-ink-muted">
+              Chave manual: <code className="rounded bg-ice px-1 py-0.5">{secret}</code>
+            </p>
+          ) : null}
           <form onSubmit={(e) => void handleConfirm(e)} className="space-y-3">
             <label className="block text-sm font-medium text-ink" htmlFor="mfa-setup-code">
               Código do autenticador

@@ -58,6 +58,21 @@ export function useAdminSecurity(sessionToken: string | null) {
   const startMfaSetup = useCallback(async () => {
     if (!supabase) throw new Error("Supabase não configurado");
     setError(null);
+
+    const { data: factors, error: listError } = await supabase.auth.mfa.listFactors();
+    if (listError) throw listError;
+
+    const verified = factors.totp.find((f) => f.status === "verified");
+    if (verified) {
+      setEnrollState(null);
+      await refresh();
+      return;
+    }
+
+    for (const factor of factors.totp.filter((f) => f.status !== "verified")) {
+      await supabase.auth.mfa.unenroll({ factorId: factor.id });
+    }
+
     const { data, error: enrollError } = await supabase.auth.mfa.enroll({
       factorType: "totp",
       friendlyName: "Fluxora Admin",
@@ -70,7 +85,7 @@ export function useAdminSecurity(sessionToken: string | null) {
       qrCode: data.totp.qr_code,
       secret: data.totp.secret,
     });
-  }, [supabase]);
+  }, [supabase, refresh]);
 
   const confirmMfaSetup = useCallback(
     async (code: string) => {
