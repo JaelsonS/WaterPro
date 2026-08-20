@@ -38,6 +38,18 @@ describe("ConnectionStatusCard", () => {
   it("renderiza estado CONNECTING com spinner", () => {
     render(<ConnectionStatusCard phase="CONNECTING" {...baseProps} />);
     expect(screen.getByText(/iniciando sua conexão/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Cancelar/i })).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /Tentar novamente/i })).toBeInTheDocument();
+  });
+
+  it("permite cancelar e tentar novamente no estado CONNECTING", async () => {
+    render(<ConnectionStatusCard phase="CONNECTING" {...baseProps} />);
+    fireEvent.click(screen.getByRole("button", { name: /Cancelar/i }));
+    expect(baseProps.onSignupCancel).toHaveBeenCalled();
+    fireEvent.click(screen.getByRole("button", { name: /Tentar novamente/i }));
+    await vi.waitFor(() => {
+      expect(baseProps.onRetry).toHaveBeenCalled();
+    });
   });
 
   it("renderiza estado CONNECTED com ações", () => {

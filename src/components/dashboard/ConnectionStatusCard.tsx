@@ -33,7 +33,7 @@ type ConnectionStatusCardProps = {
     wabaId?: string;
     phoneNumberId?: string;
   }) => void;
-  onSignupCancel: () => void;
+  onSignupCancel: () => void | Promise<void>;
   onSignupError: (message: string) => void;
 };
 
@@ -74,7 +74,7 @@ export function ConnectionStatusCard({
   onSignupError,
 }: ConnectionStatusCardProps) {
   const badge = statusBadge[phase];
-  const actionsDisabled = loading || syncing || disconnecting || phase === "CONNECTING";
+  const actionsDisabled = loading || syncing || disconnecting;
 
   return (
     <section
@@ -107,7 +107,8 @@ export function ConnectionStatusCard({
               <div>
                 <p className="text-sm text-ink-soft">Estamos iniciando sua conexão com o WhatsApp.</p>
                 <p className="mt-1 text-sm text-ink-muted">
-                  Complete o processo na janela do WhatsApp/Meta.
+                  Complete o processo na janela do WhatsApp/Meta. Se a janela fechou ou falhou, cancele e
+                  tente novamente.
                 </p>
               </div>
             </div>
@@ -152,6 +153,30 @@ export function ConnectionStatusCard({
             <MagneticButton variant="primary" onClick={onConnect} disabled={actionsDisabled}>
               Conectar WhatsApp
             </MagneticButton>
+          ) : null}
+
+          {phase === "CONNECTING" ? (
+            <>
+              <MagneticButton
+                variant="secondary"
+                onClick={() => void Promise.resolve(onSignupCancel())}
+                disabled={disconnecting}
+              >
+                Cancelar
+              </MagneticButton>
+              <MagneticButton
+                variant="primary"
+                onClick={() => {
+                  void (async () => {
+                    await Promise.resolve(onSignupCancel());
+                    onRetry();
+                  })();
+                }}
+                disabled={actionsDisabled}
+              >
+                Tentar novamente
+              </MagneticButton>
+            </>
           ) : null}
 
           {phase === "REAUTH_REQUIRED" ? (

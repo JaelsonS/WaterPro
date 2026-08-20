@@ -241,13 +241,30 @@ export function useWhatsAppDashboard(sessionToken: string | null) {
     [sessionToken, pendingConnection, refresh],
   );
 
-  const cancelConnection = useCallback(() => {
+  const cancelConnection = useCallback(async () => {
     setPendingConnection(null);
     setIsConnecting(false);
     setIsProcessingCallback(false);
     setPollingConnectionId(null);
     setConnectionError(null);
-  }, []);
+
+    const connecting =
+      connections.find((c) => c.status === "CONNECTING") ??
+      (activeConnection?.status === "CONNECTING" ? activeConnection : null);
+
+    if (sessionToken && connecting?.id) {
+      try {
+        await waterproApiFetch(`/api/v1/whatsapp/connections/${connecting.id}/disconnect`, {
+          method: "POST",
+          token: sessionToken,
+          body: {},
+        });
+      } catch {
+        // Local reset already applied; refresh will reconcile.
+      }
+      await refresh().catch(() => undefined);
+    }
+  }, [sessionToken, connections, activeConnection, refresh]);
 
   const syncConnection = useCallback(async () => {
     if (!sessionToken || !activeConnection?.id || syncInFlightRef.current) return;

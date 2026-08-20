@@ -194,8 +194,22 @@ export function MetaEmbeddedSignup({
   }, [appId, configId, onCancelRef, onCompleteRef, onErrorRef, postMessageWaitMs]);
 
   return (
-    <div className="glass-panel rounded-2xl p-8 text-center">
-      <p className="text-lg text-ink">Abrindo conexão do WhatsApp…</p>
+    <div className="mt-2 rounded-2xl border border-slate-line bg-ice/60 p-6 text-center">
+      <p className="text-base text-ink">Abrindo a janela do WhatsApp / Meta…</p>
+      <p className="mt-2 text-sm text-ink-muted">
+        Se a janela não abrir ou aparecer erro de App ID, cancele e verifique a configuração Meta.
+      </p>
+      <button
+        type="button"
+        className="mt-4 text-sm font-medium text-azure underline-offset-2 hover:underline"
+        onClick={() => {
+          if (doneRef.current) return;
+          doneRef.current = true;
+          onCancel();
+        }}
+      >
+        Cancelar conexão
+      </button>
     </div>
   );
 }
