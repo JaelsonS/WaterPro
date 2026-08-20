@@ -20,47 +20,87 @@ const FB_SDK_URL = "https://connect.facebook.net/en_US/sdk.js";
 const ALLOWED_MESSAGE_ORIGINS = new Set(["https://www.facebook.com", "https://web.facebook.com"]);
 
 let fbSdkPromise: Promise<void> | null = null;
+let fbInitializedAppId: string | null = null;
+
+function normalizeMetaAppId(raw: string): string {
+  return raw.trim().replace(/^["']|["']$/g, "");
+}
+
+function isValidMetaAppId(appId: string): boolean {
+  return /^[0-9]{5,20}$/.test(appId);
+}
 
 function loadFacebookSdk(appId: string) {
   if (typeof window === "undefined") return Promise.reject(new Error("Not in browser"));
-  if ((window as any).FB) return Promise.resolve();
-  if (fbSdkPromise) return fbSdkPromise;
+
+  const FB = (window as unknown as { FB?: { init: (opts: Record<string, unknown>) => void; login: (...args: unknown[]) => void } }).FB;
+  if (FB && fbInitializedAppId === appId) return Promise.resolve();
+
+  // App ID changed or first load — (re)initialize.
+  if (FB && fbInitializedAppId !== appId) {
+    FB.init({
+      appId,
+      autoLogAppEvents: false,
+      xfbml: false,
+      version: "v21.0",
+    });
+    fbInitializedAppId = appId;
+    return Promise.resolve();
+  }
+
+  if (fbSdkPromise && fbInitializedAppId === appId) return fbSdkPromise;
 
   fbSdkPromise = new Promise<void>((resolve, reject) => {
-    const existing = document.getElementById("waterpro-fb-sdk");
-    if (existing) {
-      // Se o script existir, ainda assim esperamos o init (o onload nem sempre é confiável).
-      // Basta aguardar até FB.init ter sido feito.
-      const interval = setInterval(() => {
-        if ((window as any).FB) {
-          clearInterval(interval);
-          resolve();
-        }
-      }, 50);
-      return;
-    }
-
-    (window as any).fbAsyncInit = () => {
+    const finishInit = () => {
       try {
-        (window as any).FB.init({
+        const sdk = (window as unknown as { FB: { init: (opts: Record<string, unknown>) => void } }).FB;
+        sdk.init({
           appId,
           autoLogAppEvents: false,
           xfbml: false,
           version: "v21.0",
         });
+        fbInitializedAppId = appId;
         resolve();
       } catch (e) {
+        fbSdkPromise = null;
         reject(e);
       }
     };
 
-    const script = document.createElement("script");
-    script.id = "waterpro-fb-sdk";
-    script.async = true;
-    script.defer = true;
-    script.src = FB_SDK_URL;
-    script.onerror = () => reject(new Error("Failed to load Facebook JS SDK"));
-    document.head.appendChild(script);
+    if ((window as unknown as { FB?: unknown }).FB) {
+      finishInit();
+      return;
+    }
+
+    (window as unknown as { fbAsyncInit?: () => void }).fbAsyncInit = finishInit;
+
+    if (!document.getElementById("waterpro-fb-sdk")) {
+      const script = document.createElement("script");
+      script.id = "waterpro-fb-sdk";
+      script.async = true;
+      script.defer = true;
+      script.src = FB_SDK_URL;
+      script.onerror = () => {
+        fbSdkPromise = null;
+        reject(new Error("Failed to load Facebook JS SDK"));
+      };
+      document.head.appendChild(script);
+    } else {
+      const interval = setInterval(() => {
+        if ((window as unknown as { FB?: unknown }).FB) {
+          clearInterval(interval);
+          finishInit();
+        }
+      }, 50);
+      setTimeout(() => {
+        clearInterval(interval);
+        if (!fbInitializedAppId) {
+          fbSdkPromise = null;
+          reject(new Error("Facebook JS SDK timeout"));
+        }
+      }, 15_000);
+    }
   });
 
   return fbSdkPromise;
@@ -73,12 +113,13 @@ export function MetaEmbeddedSignup({
   onError,
   postMessageWaitMs = 20_000,
 }: Props) {
-  const [embeddedCode, setEmbeddedCode] = useState<string | null>(null);
-  const [wabaId, setWabaId] = useState<string | undefined>(undefined);
-  const [phoneNumberId, setPhoneNumberId] = useState<string | undefined>(undefined);
+  const [statusMessage, setStatusMessage] = useState("A preparar a janela do WhatsApp / Meta…");
   const doneRef = useRef(false);
 
-  const appId = useMemo(() => process.env.NEXT_PUBLIC_META_APP_ID ?? "", []);
+  const appId = useMemo(
+    () => normalizeMetaAppId(process.env.NEXT_PUBLIC_META_APP_ID ?? ""),
+    [],
+  );
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const embeddedCodeRef = useRef<string | null>(null);
   const wabaIdRef = useRef<string | undefined>(undefined);
@@ -99,22 +140,43 @@ export function MetaEmbeddedSignup({
 
     async function run() {
       if (!appId) {
-        onErrorRef.current("Meta não configurado (META_APP_ID ausente).");
+        setStatusMessage("Meta App ID em falta na Vercel.");
+        onErrorRef.current(
+          "NEXT_PUBLIC_META_APP_ID não está no build. Defina na Vercel e faça Redeploy.",
+        );
+        return;
+      }
+
+      if (!isValidMetaAppId(appId)) {
+        setStatusMessage("Meta App ID inválido no build.");
+        onErrorRef.current(
+          `NEXT_PUBLIC_META_APP_ID inválido ("${appId.slice(0, 24)}"). Use só o número do App ID (ex.: 108075992771681) e Redeploy.`,
+        );
+        return;
+      }
+
+      if (!configId || !/^[0-9]{5,20}$/.test(String(configId).trim())) {
+        setStatusMessage("Config ID do Embedded Signup inválido.");
+        onErrorRef.current(
+          "embeddedSignupConfigId inválido. Confirme META_EMBEDDED_SIGNUP_CONFIG_ID no Render.",
+        );
         return;
       }
 
       try {
+        setStatusMessage(`A abrir Meta (App ID …${appId.slice(-4)})…`);
         await loadFacebookSdk(appId);
-      } catch (e) {
+      } catch {
         onErrorRef.current("Falha ao carregar o Facebook JS SDK.");
         return;
       }
 
-      // postMessage listener: apenas origens permitidas
+      if (cancelled || doneRef.current) return;
+
       const onMessage = (event: MessageEvent) => {
         if (!ALLOWED_MESSAGE_ORIGINS.has(event.origin)) return;
 
-        let payload: any = event.data;
+        let payload: unknown = event.data;
         if (typeof payload === "string") {
           try {
             payload = JSON.parse(payload);
@@ -123,59 +185,62 @@ export function MetaEmbeddedSignup({
           }
         }
 
-        // Embedded Signup usa uma mensagem com tipo específico (defensivo).
-        if (!payload || payload.type !== "WA_EMBEDDED_SIGNUP") return;
+        const message = payload as {
+          type?: string;
+          event?: string;
+          data?: { waba_id?: string; phone_number_id?: string };
+        };
+        if (!message || message.type !== "WA_EMBEDDED_SIGNUP") return;
 
-        const eventName = typeof payload.event === "string" ? payload.event.toUpperCase() : "";
+        const eventName = typeof message.event === "string" ? message.event.toUpperCase() : "";
+        const data = message.data ?? {};
 
-        const data = payload.data ?? {};
-        if (typeof data.waba_id === "string") {
-          wabaIdRef.current = data.waba_id;
-          setWabaId(data.waba_id);
-        }
-        if (typeof data.phone_number_id === "string") {
-          phoneNumberIdRef.current = data.phone_number_id;
-          setPhoneNumberId(data.phone_number_id);
-        }
+        if (typeof data.waba_id === "string") wabaIdRef.current = data.waba_id;
+        if (typeof data.phone_number_id === "string") phoneNumberIdRef.current = data.phone_number_id;
 
-        // Alguns fluxos omitem phone_number_id; waba_id tende a existir.
-        // Não confiamos em "event" totalmente; apenas avançamos quando o code chegar.
         const currentCode = embeddedCodeRef.current;
-        const looksLikeFinish = eventName.includes("FINISH");
-        if (currentCode && looksLikeFinish && !doneRef.current) {
+        if (currentCode && eventName.includes("FINISH") && !doneRef.current) {
           doneRef.current = true;
-          onCompleteRef.current({ embeddedCode: currentCode, wabaId: data.waba_id, phoneNumberId: data.phone_number_id });
+          onCompleteRef.current({
+            embeddedCode: currentCode,
+            wabaId: data.waba_id,
+            phoneNumberId: data.phone_number_id,
+          });
         }
       };
 
       window.addEventListener("message", onMessage);
 
-      // Callback do FB.login: onde vem o exchangeable code (curto-lived).
-      (window as any).FB.login(
-        (response: any) => {
+      const FB = (window as unknown as {
+        FB: { login: (cb: (response: unknown) => void, opts: Record<string, unknown>) => void };
+      }).FB;
+
+      FB.login(
+        (response: unknown) => {
           if (cancelled || doneRef.current) return;
 
-          const code = response?.authResponse?.code;
+          const authResponse = (response as { authResponse?: { code?: string } } | null)?.authResponse;
+          const code = authResponse?.code;
           if (typeof code === "string" && code.length > 0) {
             embeddedCodeRef.current = code;
-            setEmbeddedCode(code);
-            // Não finalizamos aqui ainda: esperamos postMessage com waba/phone quando possível.
-            // Mas garantimos fallback por timeout.
             if (timeoutRef.current) clearTimeout(timeoutRef.current);
             timeoutRef.current = setTimeout(() => {
               if (cancelled || doneRef.current) return;
               doneRef.current = true;
-              onCompleteRef.current({ embeddedCode: code, wabaId: wabaIdRef.current, phoneNumberId: phoneNumberIdRef.current });
+              onCompleteRef.current({
+                embeddedCode: code,
+                wabaId: wabaIdRef.current,
+                phoneNumberId: phoneNumberIdRef.current,
+              });
             }, postMessageWaitMs);
             return;
           }
 
-          // Cancelamento / bloqueio / erro no popup.
           doneRef.current = true;
           onCancelRef.current();
         },
         {
-          config_id: configId,
+          config_id: String(configId).trim(),
           response_type: "code",
           override_default_response_type: true,
           extras: {
@@ -183,21 +248,32 @@ export function MetaEmbeddedSignup({
           },
         },
       );
+
+      return onMessage;
     }
 
-    void run();
+    let onMessage: ((event: MessageEvent) => void) | undefined;
+    void run().then((listener) => {
+      onMessage = listener;
+    });
 
     return () => {
       cancelled = true;
       if (timeoutRef.current) clearTimeout(timeoutRef.current);
+      if (onMessage) window.removeEventListener("message", onMessage);
     };
-  }, [appId, configId, onCancelRef, onCompleteRef, onErrorRef, postMessageWaitMs]);
+  }, [appId, configId, postMessageWaitMs]);
 
   return (
     <div className="mt-2 rounded-2xl border border-slate-line bg-ice/60 p-6 text-center">
-      <p className="text-base text-ink">Abrindo a janela do WhatsApp / Meta…</p>
+      <p className="text-base text-ink">{statusMessage}</p>
+      <p className="mt-2 text-xs text-ink-muted">
+        App ID no build: {appId ? `…${appId.slice(-6)}` : "em falta"} · Config:{" "}
+        {configId ? `…${String(configId).slice(-6)}` : "em falta"}
+      </p>
       <p className="mt-2 text-sm text-ink-muted">
-        Se a janela não abrir ou aparecer erro de App ID, cancele e verifique a configuração Meta.
+        Se aparecer “ID do app inválido”, o valor na Vercel não entrou no deploy — confirme e faça
+        Redeploy.
       </p>
       <button
         type="button"
@@ -213,4 +289,3 @@ export function MetaEmbeddedSignup({
     </div>
   );
 }
-
