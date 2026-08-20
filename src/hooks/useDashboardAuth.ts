@@ -108,18 +108,31 @@ export function useDashboardAuth(): DashboardAuthState {
           throw new Error("Sessão inválida. Confirme o email antes de entrar.");
         }
 
+        setSessionToken(token);
+        setUserEmail(signedInEmail);
+        setAuthReady(true);
+
         const pending = readPendingRegistration(normalizedEmail);
-        if (pending) {
-          await provisionCompanyIfNeeded(token, pending.companyName);
-          clearPendingRegistration();
-        } else {
-          const companyName =
-            typeof data.user.user_metadata?.company_name === "string"
-              ? data.user.user_metadata.company_name
-              : null;
-          if (companyName) {
-            await provisionCompanyIfNeeded(token, companyName);
+        try {
+          if (pending) {
+            await provisionCompanyIfNeeded(token, pending.companyName);
+            clearPendingRegistration();
+          } else {
+            const companyName =
+              typeof data.user.user_metadata?.company_name === "string"
+                ? data.user.user_metadata.company_name
+                : null;
+            if (companyName) {
+              await provisionCompanyIfNeeded(token, companyName);
+            }
           }
+        } catch (provisionError: unknown) {
+          // Login succeeded — keep the session even if company provisioning fails.
+          const message =
+            provisionError instanceof Error
+              ? provisionError.message
+              : "Conta autenticada, mas a empresa ainda não ficou pronta.";
+          setAuthError(message);
         }
       } finally {
         setAuthLoading(false);

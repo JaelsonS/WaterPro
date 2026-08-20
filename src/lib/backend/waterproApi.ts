@@ -7,6 +7,8 @@ type ApiFetchOptions = {
   query?: Record<string, string | undefined>;
   body?: unknown;
   signal?: AbortSignal;
+  /** When true, do not force local logout on 401 (e.g. during signup provisioning). */
+  skipAuthExpired?: boolean;
 };
 
 function buildBaseUrl() {
@@ -72,6 +74,11 @@ async function requestWithToken<T>(
   return parseApiResponse<T>(res);
 }
 
+function emitAuthExpired(options: ApiFetchOptions) {
+  if (options.skipAuthExpired || typeof window === "undefined") return;
+  window.dispatchEvent(new CustomEvent("waterpro:auth-expired"));
+}
+
 export async function waterproApiFetch<T>(path: string, options: ApiFetchOptions): Promise<T> {
   const initialToken = options.token;
   try {
@@ -83,21 +90,16 @@ export async function waterproApiFetch<T>(path: string, options: ApiFetchOptions
 
     const refreshedToken = await refreshAccessToken();
     if (!refreshedToken || refreshedToken === initialToken) {
-      if (typeof window !== "undefined") {
-        window.dispatchEvent(new CustomEvent("waterpro:auth-expired"));
-      }
+      // Only force logout when the session refresh itself failed (token truly dead).
+      if (!refreshedToken) emitAuthExpired(options);
       throw error;
     }
 
     try {
       return await requestWithToken<T>(path, options, refreshedToken);
     } catch (retryError) {
-      if (
-        retryError instanceof WaterProApiError &&
-        retryError.status === 401 &&
-        typeof window !== "undefined"
-      ) {
-        window.dispatchEvent(new CustomEvent("waterpro:auth-expired"));
+      if (retryError instanceof WaterProApiError && retryError.status === 401) {
+        emitAuthExpired(options);
       }
       throw retryError;
     }

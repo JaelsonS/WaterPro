@@ -13,6 +13,7 @@ export async function provisionCompanyIfNeeded(token: string, companyName: strin
   const status = await waterproApiFetch<RegisterStatus>("/api/v1/auth/register/status", {
     method: "GET",
     token,
+    skipAuthExpired: true,
   });
 
   if (status.registered) return { provisioned: false as const };
@@ -21,6 +22,7 @@ export async function provisionCompanyIfNeeded(token: string, companyName: strin
     method: "POST",
     token,
     body: { companyName },
+    skipAuthExpired: true,
   });
 
   return { provisioned: true as const };
